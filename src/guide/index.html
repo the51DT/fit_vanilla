@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon-32x32.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= data.title %></title>
+            <meta name="description" content="<%= data.description %>">            
+            <!-- <link rel="stylesheet" href="/src/assets/css/index.css" /> -->
+    </head>
+    <body>
+        <div class="guide__wrap ">
+            <div class="guide__wrap">
+                <%- include('src/layouts/guide_header.html') %>            
+                <div class="guide-content">
+                    <div class="font-body-md font-semibold">개요</div>
+                    <div class="guide-page__table-wrap mt-5">
+                        <table>
+                            <colgroup>
+                                <col style="width: 20%;">
+                                <col>
+                            </colgroup>
+                            <tbody id="info-table-body">
+                            </tbody>
+                        </table>
+                    </div>   
+                    <ul class="description-list">
+                        <li> 프로젝트 수행을 위한 기본 가이드를 제공한다.</li>                        
+                    </ul>             
+                </div>            
+        </div>
+        <script type="module" src="/src/main.js"></script>
+    </body>
+</html>

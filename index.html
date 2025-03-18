@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon-32x32.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= data.title %></title>
+            <meta name="description" content="<%= data.description %>">                   
+    </head>
+    <body>
+        <div class="flex flex-col items-center justify-center w-full" style="gap: 20px;height: 100vh;">
+            <div class="flex items-center justify-center  w-9/12"  style="gap: 20px">
+                <a href="/src/guide/index.html"  class="flex items-center justify-center w-full border-1 border-sky-500 rounded-md max-w-60 h-32 text-center bg-gray-200 text-xl font-semibold">Vanilla</a>
+                <a href="#" class="flex items-center justify-center w-full border-1 border-sky-500 rounded-md max-w-60 h-32 text-center bg-gray-200 text-xl font-semibold">Vue</a>
+                <a href="#" class="flex items-center justify-center w-full border-1 border-sky-500 rounded-md max-w-60 h-32 text-center bg-gray-200 text-xl font-semibold">React</a>
+            </div>
+        </div>
+        <script type="module" src="/src/main.js"></script>
+    </body>
+</html>

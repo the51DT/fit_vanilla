@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon-32x32.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= data.title %></title>
+            <meta name="description" content="<%= data.description %>">            
+            
+    </head>
+    <body>
+        <div class="guide__wrap">
+            <div class="guide__wrap">
+                <%- include('src/layouts/guide_header.html') %>        
+                <div class="page-location text-2xl font-bold">
+                    <span id="pagesTitle"></span>
+                </div>   
+                <div class="guide-content">            
+                    <div class="flex justify-between lnb-type">
+                        <div class="page-cont flex-1">      
+                            <p class="guide-title-h3">1. 설치 및 환경 </p>
+                            <div class="section_text">
+                                <ul class="description-list">
+                                    <li>Git에서 클론 받은 소스는 먼저 npm install 명령어로 설치하고, npm run dev로 개발 서버를 실행한다.</li>
+                                    <li>최초설정은 node 20.18.1 에서 했고, 설치 오류시 버전 체크 필수사항이다.</li>
+                                    <li>공통 파일 관리를 위해 EJS(Embedded JavaScript Template) 템플릿 엔진 모듈을 사용하며, GitHub Actions를 통해 자동 빌드된 후 Netlify로 배포된다.</li>
+                                    <li>개발시 dist 폴더를 참조하면 통합된 html과 컴포넌트 파일을 필요에 따라 활용할수 있으며 npm run build 를 통해 dist는 생성된다. </li>                            
+                                    <li>기타 세부 사항은 package.json에서 확인할 수 있다.</li>
+                                </ul>
+                            </div>  
+                            <p class="guide-title-h3 mt-6">2. 네이밍 룰</p>
+                            <div class="section_text">
+                                <ul class="description-list">
+                                    <li>컴포넌트 기반의 웹 개발론에 최적화된 BEM 방식을 권장 한다.</li>                                    
+                                    <li>네이밍의 조합은 형태-의미-순서-상태 순으로 사용한다.</li>
+                                    <li>클래스명은 의미를 쉽게 이해할수 있는 조합으로 하되 가능한 약어를 피한다.(예: button_wrap`(o), btn_(X))</li>
+                                    <li>ID는 고유하므로 css에서는 ID 규칙을 피한다.</li>
+                                    <li>Tag 규칙을 사용하지 않고 Class 규칙에 속하는 규칙을 사용한다.</li>
+                                    <li style="margin-top: 15px; font-weight: 500">tailwindcss 를 사용하며 과도한 클래스 중첩이 발생하지 않는 경우 예) Spacing, align, Transforms 등 경우에 사용한다.</li>
+                                </ul>
+                            </div>  
+                            <p class="guide-title-h3 mt-6">3. 디렉토리 구조</p>
+                            <div class="section_text flex">
+                                <ul class="description-list ml-10">
+                                    <li><strong>dist : </strong> build 폴더</li>                            
+                                    <li><strong>public : </strong> bundle & js 외 일부 이미지 (build시 dist/assets/ 경로로 이동) </li>     
+                                    <li>
+                                        <strong>src : </strong> <br>
+                                        layouts - 레이아웃 공통 파일<br>
+                                        assets(css, image)/  <br>
+                                        component - 컴포넌트 파일 <br>
+                                        guide - 가이드 파일 <br> page - 페이지 
+                                    </li>     
+                                    <li>메뉴 추가/삭제는 /public/ia.json 에서 하며 각 작업자별로 메뉴를 생성한다.</li>
+                                </ul>
+                            </div>       
+                            
+                            <p class="guide-title-h3 mt-6">4. 컴포넌트 구성</p>
+                            <div class="section_text">
+                                <ul class="description-list">
+                                    <li>디자인 value는 root변수를 사용하며 코드의 재사용성을 높인다.</li>
+                                </ul>
+                            </div> 
+                            
+                            <p class="guide-title-h3 mt-6">5. 활용 가능한 API</p>
+                            <div class="section_text">
+                                <ul class="description-list">
+                                    <li>관리자 : https://api.kodegen.kr/swagger-ui/index.html</li>
+                                    <li>날씨 API : js 폴더 참고</li>
+                                </ul>
+                            </div>                             
+                                        
+                        </div>
+                    </div>            
+                </div>         
+        </div>
+        <script type="module" src="/src/main.js"></script>
+    </body>
+</html>

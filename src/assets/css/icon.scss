@@ -1,0 +1,68 @@
+$baseUrl: "/src/assets/image/icon/";
+$fileType: "svg";
+
+@mixin iconFile($wd, $ht, $icoName) {
+    width: calc(#{$wd} / 16 * 1rem); 
+    height: calc(#{$ht} / 16 * 1rem);
+    min-width: calc(#{$wd} / 16 * 1rem); 
+    background: url("#{$baseUrl}#{$icoName}." + $fileType) no-repeat center center; 
+    background-size: contain;
+}
+
+/* 아이콘 */
+.ico {
+    display: inline-flex;
+    background-size: contain;
+    vertical-align: middle;
+    // &.icon-earth-wt24 {
+    //     @include iconFile(24,24,'ico_language');
+    // }
+    // &.icon-search-wt24 {
+    //     @include iconFile(24,24,'ico_search');
+    // }
+    // &.icon-search-bl35 {
+    //     @include iconFile(35,35,'ico_sarch_bl35');
+    // }      
+    // &.icon-remove-bl28 {
+    //     @include iconFile(28,28,'ico_remove_gray28');
+    // }   
+    // &.icon-arrow-right-wt16 {
+    //     @include iconFile(16,16,'icon_arrow_wt16');
+    // }        
+    // &.icon-lang-bl24 {
+    //     @include iconFile(24,24,'icon_lang_bl24');
+    // }    
+    // &.icon-search-bl24 {
+    //     @include iconFile(24,24,'icon_search_bl24');
+    // }   
+    // &.icon-hamburger-menu {
+    //     @include iconFile(24,24,'btn_hamburger_menu');
+    // }   
+    // &.icon-hamburger-menu_bl {
+    //     @include iconFile(24,24,'icon_hamburger_bl');
+    // }      
+    // &.icon-more-dot {
+    //     @include iconFile(16,16,'ico-more');
+    // }   
+    // &.icon-pagination-first {
+    //     @include iconFile(16,16,'icon_page_first');
+    // }   
+    // &.icon-pagination-prev {
+    //     @include iconFile(16,16,'icon_page_prev');
+    // }      
+    // &.icon-pagination-next {
+    //     @include iconFile(16,16,'icon_page_next');
+    // } 
+    // &.icon-pagination-last {
+    //     @include iconFile(16,16,'icon_page_last');
+    // }     
+    // &.icon-heart-line {
+    //     @include iconFile(20,20,'icon_heart_line');
+    // }
+    // &.icon-arrow-up-w24 {
+    //     @include iconFile(24,24,'icon_arrow_up_w24');
+    // }                       
+    // &.icon-arrow-down-w24 {
+    //     @include iconFile(24,24,'icon_arrow_down_w24');
+    // }  
+}

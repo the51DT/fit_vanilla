@@ -1,0 +1,40 @@
+{
+    "name": "fit-project-vanilla",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "prettier": "prettier --write .",        
+        "lint": "eslint . --ext .js --report-unused-disable-directives --max-warnings 0",
+        "format": "prettier --write .",
+        "clean": "rm -rf dist",
+        "json": "node generate-css.js",
+        "icon:watch": "node icon.js",
+        "icon:compile": "node icon.js"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.20",
+        "eslint": "^9.20.1",
+        "eslint-config-prettier": "^10.0.1",
+        "eslint-plugin-prettier": "^5.2.3",
+        "postcss": "^8.5.3",
+        "prettier": "^3.5.1",
+        "sass": "^1.85.0",
+        "stylelint": "^16.14.1",
+        "stylelint-config-standard-scss": "^14.0.0",
+        "stylelint-scss": "^6.11.0",
+        "tailwindcss": "^4.0.9",
+        "vite": "^6.1.0",
+        "vite-plugin-ejs": "^1.7.0"
+    },
+    "dependencies": {
+        "@tailwindcss/vite": "^4.0.6",
+        "fast-glob": "^3.3.3",
+        "pretty": "^2.0.0",
+        "swiper": "^11.2.5",
+        "v": "^0.3.0"
+    }
+}
