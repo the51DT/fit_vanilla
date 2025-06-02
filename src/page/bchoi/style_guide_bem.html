@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-32x32.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= data.title %>
+    </title>
+    <meta name="description" content="<%= data.description %>">
+
+</head>
+
+<body>
+    <div class="guide__wrap">
+        <div class="guide__wrap">
+            <%- include('src/layouts/guide_header.html') %>
+                <div class="page-location text-2xl font-bold">
+                    <span id="pagesTitle">CSS 방법론</span>
+                </div>
+                <div class="guide-content">
+                    <div class="flex justify-between lnb-type">
+                        <div class="page-cont flex-1">
+                            <p class="guide-title-h3">2. BEM</p>
+                            <div class="section_text mt-3">
+                                <p>
+                                    BEM은 Block(블록), Element(요소), Modifier(수정자) 개념을 기반으로 CSS 클래스 이름을 체계적으로 관리하는 방법론이다.
+                                </p>
+                                <p>
+                                    재사용성과 유지보수성을 높이기 위해 개발되었다.
+                                </p>
+                                <!-- <p>
+                                    주요 장점으로 클래스 이름만으로 구조와 역할을 추론 가능하며 CSS 재사용성과 유지보수성 향상 및 중첩을 피함으로써 명확한 구조를 유지한다는 점이 있다.
+                                </p> -->
+                            </div>
+                            <p class="guide-title-h4 mt-6">2-1. 블록 (Block)</p>
+                            <div class="section_text mt-3">
+                                <ul class="description-list">
+                                    <li>독립적인 UI 구성요소이며 의미상 스스로 존재할 수 있는 컴포넌트이다.</li>
+                                    <li>
+                                        블록 이름은 의미 있는 명사로 정한다 (기능 또는 역할 중심).
+                                    </li>
+                                    <li>
+                                        절대 다른 블록의 내부 요소에 의존하지 않아야 한다. (.menu__item은 .menu 블록 안에서만 의미 있음.)
+                                    </li>
+                                </ul>
+                                <div class="box_code mt-3">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                        <div style="line-height:130%">2</div>
+                                                        <div style="line-height:130%">3</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#ff3399">div</span>&nbsp;<span
+                                                                style="color:#a8ff58">class</span>=<span style="color:#ffd500">"header"</span><span
+                                                                style="color:#a8ff58"></span><span style="color:#f0f0f0">&gt;</span><span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#f0f0f0">/</span><span
+                                                                style="color:#ff3399">div</span><span style="color:#f0f0f0">&gt;</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#ff3399">div</span>&nbsp;<span
+                                                                style="color:#a8ff58">class</span>=<span style="color:#ffd500">"menu"</span><span
+                                                                style="color:#a8ff58"></span><span style="color:#f0f0f0">&gt;</span><span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#f0f0f0">/</span><span
+                                                                style="color:#ff3399">div</span><span style="color:#f0f0f0">&gt;</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#ff3399">div</span>&nbsp;<span
+                                                                style="color:#a8ff58">class</span>=<span style="color:#ffd500">"button"</span><span
+                                                                style="color:#a8ff58"></span><span style="color:#f0f0f0">&gt;</span><span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#f0f0f0">/</span><span
+                                                                style="color:#ff3399">div</span><span style="color:#f0f0f0">&gt;</span></div>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="box_code mt-3">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                        <div style="line-height:130%">2</div>
+                                                        <div style="line-height:130%">3</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">.header&nbsp;</span>{<span
+                                                                style="color:#E083FF">&nbsp;...&nbsp;</span>}<span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">.menu&nbsp;</span>{<span
+                                                                style="color:#E083FF">&nbsp;...&nbsp;</span>}<span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">.button&nbsp;</span>{<span
+                                                                style="color:#E083FF">&nbsp;...&nbsp;</span>}</div>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="guide-title-h4 mt-6">2-2. 요소 (Element)</p>
+                            <div class="section_text mt-3">
+                                <ul class="description-list">
+                                    <li>블록의 구성요소로, 블록에 종속된다.</li>
+                                    <li>블록 이름과 두 개의 밑줄(__)로 연결되는 형식을 따른다.</li>
+                                    <li>요소는 블록 안에서만 사용해야 하며, 블록 없이 단독으로 쓰지 않는다.</li>
+                                    <li>다른 블록의 요소와 중복되지 않도록 블록명을 반드시 앞에 붙여야 한다.</li>
+                                </ul>
+                                <div class="box_code mt-3">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                        <div style="line-height:130%">2</div>
+                                                        <div style="line-height:130%">3</div>
+                                                        <div style="line-height:130%">4</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#ff3399">div</span>&nbsp;<span
+                                                                style="color:#a8ff58">class</span>=<span style="color:#ffd500">"menu"</span><span
+                                                                style="color:#a8ff58"></span><span style="color:#f0f0f0">&gt;</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%">&nbsp;&nbsp;<span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#ff3399">div</span>&nbsp;<span
+                                                                style="color:#a8ff58">class</span>=<span style="color:#ffd500">"menu__item"</span><span
+                                                                style="color:#a8ff58"></span><span style="color:#f0f0f0">&gt;</span>Home<span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#f0f0f0">/</span><span
+                                                                style="color:#ff3399">div</span><span style="color:#f0f0f0">&gt;</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%">&nbsp;&nbsp;<span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#ff3399">div</span>&nbsp;<span
+                                                                style="color:#a8ff58">class</span>=<span style="color:#ffd500">"menu__item"</span><span
+                                                                style="color:#a8ff58"></span><span style="color:#f0f0f0">&gt;</span>About<span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#f0f0f0">/</span><span
+                                                                style="color:#ff3399">div</span><span style="color:#f0f0f0">&gt;</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#f0f0f0">/</span><span
+                                                                style="color:#ff3399">div</span><span style="color:#f0f0f0">&gt;</span></div>
+                                                    </div>
+                                                    <div style="text-align:right;margin-top:-13px;margin-right:5px;font-size:9px;font-style:italic"><a
+                                                            href="http://colorscripter.com/info#e" target="_blank"
+                                                            style="color:#4f4f4f;text-decoration:none">Colored by Color Scripter</a></div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="box_code mt-3">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">.menu__item&nbsp;</span>{<span
+                                                                style="color:#E083FF">&nbsp;...&nbsp;</span>}</div>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="guide-title-h4 mt-6">2-3. 수정자 (Modifier)</p>
+                            <div class="section_text mt-3">
+                                <ul class="description-list">
+                                    <li>블록이나 요소의 <b>상태나 변형</b>을 나타낸다. (수정자는 의미 변화가 아닌 상태 변화만 표현해야 함.)</li>
+                                    <li>한 개의 밑줄(_)로 상태를 명시한다.</li>
+                                    <li>block--modifier 또는 block__element--modifier 형식을 사용할 수도 있으나, 공식 BEM에서는 언더스코어 _ 방식을 권장한다.</li>
+                                </ul>
+                                <div class="box_code mt-3">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                        <div style="line-height:130%">2</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#ff3399">div</span>&nbsp;<span
+                                                                style="color:#a8ff58">class</span>=<span
+                                                                style="color:#ffd500">"button&nbsp;button_disabled"</span><span
+                                                                style="color:#a8ff58"></span><span style="color:#f0f0f0">&gt;</span>Save<span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#f0f0f0">/</span><span
+                                                                style="color:#ff3399">div</span><span style="color:#f0f0f0">&gt;</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#ff3399">div</span>&nbsp;<span
+                                                                style="color:#a8ff58">class</span>=<span
+                                                                style="color:#ffd500">"menu__item&nbsp;menu__item_selected"</span><span
+                                                                style="color:#a8ff58"></span><span style="color:#f0f0f0">&gt;</span>Home<span
+                                                                style="color:#f0f0f0">&lt;</span><span style="color:#f0f0f0">/</span><span
+                                                                style="color:#ff3399">div</span><span style="color:#f0f0f0">&gt;</span></div>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="box_code mt-3">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                        <div style="line-height:130%">2</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">.button_disabled&nbsp;</span>{<span
+                                                                style="color:#E083FF">&nbsp;...&nbsp;</span>}<span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">.menu__item_selected&nbsp;</span>{<span
+                                                                style="color:#E083FF">&nbsp;...&nbsp;</span>}</div>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="guide-title-h4 mt-6 font-bold">참고 사이트</p>
+                            <div class="section_text mt-3">
+                                <ul class="description-list">
+                                    <li><a href="https://en.bem.info/methodology/css/">BEM methodology > CSS with BEM</a></li>
+                                    <li><a href="https://getbem.com/introduction/">getbem</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>
