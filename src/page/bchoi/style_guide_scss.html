@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-32x32.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= data.title %>
+    </title>
+    <meta name="description" content="<%= data.description %>">
+
+</head>
+
+<body>
+    <div class="guide__wrap">
+        <div class="guide__wrap">
+            <%- include('src/layouts/guide_header.html') %>
+                <div class="page-location text-2xl font-bold">
+                    <span id="pagesTitle">GP1 기반 SCSS mixin 가이드 제공</span>
+                </div>
+                <div class="guide-content">
+                    <div class="flex justify-between lnb-type">
+                        <div class="page-cont flex-1">
+                            <p class="guide-title-h3">GP1</p>
+                            <p class="guide-title-h4 mt-3">src/scss/abstract/_mixin.scss</p>
+
+                            <p class="guide-title-h4 mt-6">to-rem</p>
+                            <div class="section_text mt-3">
+                                <div class="box_code">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                        <div style="line-height:130%">2</div>
+                                                        <div style="line-height:130%">3</div>
+                                                        <div style="line-height:130%">4</div>
+                                                        <div style="line-height:130%">5</div>
+                                                        <div style="line-height:130%">6</div>
+                                                        <div style="line-height:130%">7</div>
+                                                        <div style="line-height:130%">8</div>
+                                                        <div style="line-height:130%">9</div>
+                                                        <div style="line-height:130%">10</div>
+                                                        <div style="line-height:130%">11</div>
+                                                        <div style="line-height:130%">12</div>
+                                                        <div style="line-height:130%">13</div>
+                                                        <div style="line-height:130%">14</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;#&nbsp;to-rem</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">@function&nbsp;to-rem</span>(<span
+                                                                style="color:#a8ff58">$size</span>)<span style="color:#ff3399">&nbsp;</span>{<span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;$root-size</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;16px</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">&nbsp;&nbsp;@if&nbsp;string&nbsp;==&nbsp;type-of($size)&nbsp;</span>{<span
+                                                                style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;$size</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;</span>}<span
+                                                                style="color:#ff3399">&nbsp;@else&nbsp;if&nbsp;0&nbsp;==&nbsp;$size&nbsp;</span>{<span
+                                                                style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;0</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;</span>}<span
+                                                                style="color:#ff3399">&nbsp;@else&nbsp;</span>{<span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;calc($size&nbsp;/&nbsp;$root-size&nbsp;*&nbsp;1rem)</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;</span>}<span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF"></span>}<span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;=-&nbsp;description&nbsp;-=</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;$size&nbsp;</span><span
+                                                                style="color:#a8ff58">:&nbsp;only&nbsp;allow&nbsp;"px"&nbsp;unit.&nbsp;If&nbsp;the&nbsp;format&nbsp;cannot&nbsp;be&nbsp;calculated</span><span
+                                                                style="color:#ff3399"></span>,<span
+                                                                style="color:#ff3399">&nbsp;the&nbsp;value&nbsp;is&nbsp;returned&nbsp;as&nbsp;it&nbsp;is.</span>
+                                                        </div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;this&nbsp;function&nbsp;just&nbsp;do&nbsp;for&nbsp;unit&nbsp;convert.&nbsp;for&nbsp;declaration&nbsp;at&nbsp;each&nbsp;file</span>,&nbsp;use&nbsp;"rem"&nbsp;function.
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p class="guide-title-h4 mt-6">rem</p>
+                            <div class="section_text mt-3">
+                                <div class="box_code">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                        <div style="line-height:130%">2</div>
+                                                        <div style="line-height:130%">3</div>
+                                                        <div style="line-height:130%">4</div>
+                                                        <div style="line-height:130%">5</div>
+                                                        <div style="line-height:130%">6</div>
+                                                        <div style="line-height:130%">7</div>
+                                                        <div style="line-height:130%">8</div>
+                                                        <div style="line-height:130%">9</div>
+                                                        <div style="line-height:130%">10</div>
+                                                        <div style="line-height:130%">11</div>
+                                                        <div style="line-height:130%">12</div>
+                                                        <div style="line-height:130%">13</div>
+                                                        <div style="line-height:130%">14</div>
+                                                        <div style="line-height:130%">15</div>
+                                                        <div style="line-height:130%">16</div>
+                                                        <div style="line-height:130%">17</div>
+                                                        <div style="line-height:130%">18</div>
+                                                        <div style="line-height:130%">19</div>
+                                                        <div style="line-height:130%">20</div>
+                                                        <div style="line-height:130%">21</div>
+                                                        <div style="line-height:130%">22</div>
+                                                        <div style="line-height:130%">23</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;#&nbsp;rem</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">@function&nbsp;rem</span>(<span
+                                                                style="color:#a8ff58">$value</span>)<span style="color:#ff3399">&nbsp;</span>{<span
+                                                                style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;//&nbsp;@debug&nbsp;type-of($value)</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">&nbsp;&nbsp;@if&nbsp;0&nbsp;==&nbsp;str-index(#</span>{<span
+                                                                style="color:#E083FF">$value</span>}<span style="color:#ff3399"></span>,<span
+                                                                style="color:#ff3399">&nbsp;'px')&nbsp;</span>{<span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;&nbsp;&nbsp;@warn&nbsp;"invalid&nbsp;value.&nbsp;use&nbsp;'px'"</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;</span>}<span
+                                                                style="color:#ff3399">&nbsp;@else&nbsp;</span>{<span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">&nbsp;&nbsp;&nbsp;&nbsp;@if&nbsp;list&nbsp;==&nbsp;type-of($value)&nbsp;</span>{<span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$rem</span><span
+                                                                style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;to-rem(list.nth($value,&nbsp;1))</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$output</span><span
+                                                                style="color:#ff3399">:</span><span style="color:#E083FF">&nbsp;$rem</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@for&nbsp;$i&nbsp;from&nbsp;2&nbsp;through&nbsp;length($value)&nbsp;</span>{<span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$rem</span><span
+                                                                style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;to-rem(list.nth($value,&nbsp;$i))</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$output</span><span
+                                                                style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;list.append($output,&nbsp;$rem)</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;@debug&nbsp;$output</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>}<span
+                                                                style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;$output;</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;&nbsp;&nbsp;</span>}<span
+                                                                style="color:#ff3399">&nbsp;@else&nbsp;</span>{<span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@return&nbsp;to-rem($value)</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;&nbsp;&nbsp;</span>}<span style="color:#E083FF"></span>
+                                                        </div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;</span>}<span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF"></span>}<span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;=-&nbsp;description&nbsp;-=</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;$value&nbsp;:&nbsp;allow&nbsp;number&nbsp;or&nbsp;list.</span>
+                                                        </div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;ex)&nbsp;18px&nbsp;or&nbsp;18px&nbsp;20px&nbsp;or&nbsp;</span>(<span
+                                                                style="color:#a8ff58">18px&nbsp;20px</span>)</div>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p class="guide-title-h4 mt-6">reset-list-style</p>
+                            <div class="section_text mt-3">
+                                <div class="box_code">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                        <div style="line-height:130%">2</div>
+                                                        <div style="line-height:130%">3</div>
+                                                        <div style="line-height:130%">4</div>
+                                                        <div style="line-height:130%">5</div>
+                                                        <div style="line-height:130%">6</div>
+                                                        <div style="line-height:130%">7</div>
+                                                        <div style="line-height:130%">8</div>
+                                                        <div style="line-height:130%">9</div>
+                                                        <div style="line-height:130%">10</div>
+                                                        <div style="line-height:130%">11</div>
+                                                        <div style="line-height:130%">12</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;#&nbsp;reset-list-style</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">@mixin&nbsp;reset-list-style&nbsp;</span>{<span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;list-style</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;none</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;margin</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;0</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;padding</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;0</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">&nbsp;&nbsp;li&nbsp;</span>{<span style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;margin</span><span
+                                                                style="color:#ff3399">:</span><span style="color:#E083FF">&nbsp;0</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;list-style</span><span
+                                                                style="color:#ff3399">:</span><span style="color:#E083FF">&nbsp;none</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;</span>}<span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF"></span>}<span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;=-&nbsp;description&nbsp;-=</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;reset&nbsp;user&nbsp;agent&nbsp;style&nbsp;of&nbsp;"ul"</span>,<span
+                                                                style="color:#ff3399">&nbsp;"ol"</span>,&nbsp;"li"</div>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p class="guide-title-h4 mt-6">form-reset</p>
+                            <div class="section_text mt-3">
+                                <div class="box_code">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                        <div style="line-height:130%">2</div>
+                                                        <div style="line-height:130%">3</div>
+                                                        <div style="line-height:130%">4</div>
+                                                        <div style="line-height:130%">5</div>
+                                                        <div style="line-height:130%">6</div>
+                                                        <div style="line-height:130%">7</div>
+                                                        <div style="line-height:130%">8</div>
+                                                        <div style="line-height:130%">9</div>
+                                                        <div style="line-height:130%">10</div>
+                                                        <div style="line-height:130%">11</div>
+                                                        <div style="line-height:130%">12</div>
+                                                        <div style="line-height:130%">13</div>
+                                                        <div style="line-height:130%">14</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;#&nbsp;form-reset</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">@mixin&nbsp;form-reset</span>(<span
+                                                                style="color:#a8ff58">$size</span>)<span style="color:#ff3399">&nbsp;</span>{<span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;$width</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;$size</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;$height</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;$size</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;position</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;absolute</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;z-index</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;-1</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;top</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;0</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;left</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;0</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;width</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;rem($width)</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;height</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;rem($height)</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;opacity</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;0</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span style="color:#E083FF"></span>}
+                                                        </div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%">//&nbsp;=-&nbsp;description&nbsp;-=
+                                                        </div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%">
+                                                            //&nbsp;reset&nbsp;and&nbsp;declare&nbsp;basic&nbsp;appearance&nbsp;of&nbsp;the&nbsp;input.
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p class="guide-title-h4 mt-6">ellipsis</p>
+                            <div class="section_text mt-3">
+                                <div class="box_code">
+                                    <div class="colorscripter-code"
+                                        style="color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important; position:relative !important;overflow:auto">
+                                        <table class="colorscripter-code-table"
+                                            style="margin:0;padding:0;border:none;background-color:#272727;border-radius:4px;" cellspacing="0"
+                                            cellpadding="0">
+                                            <tr>
+                                                <td style="padding:6px;border-right:2px solid #4f4f4f">
+                                                    <div
+                                                        style="margin:0;padding:0;word-break:normal;text-align:right;color:#aaa;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="line-height:130%">1</div>
+                                                        <div style="line-height:130%">2</div>
+                                                        <div style="line-height:130%">3</div>
+                                                        <div style="line-height:130%">4</div>
+                                                        <div style="line-height:130%">5</div>
+                                                        <div style="line-height:130%">6</div>
+                                                        <div style="line-height:130%">7</div>
+                                                        <div style="line-height:130%">8</div>
+                                                        <div style="line-height:130%">9</div>
+                                                        <div style="line-height:130%">10</div>
+                                                        <div style="line-height:130%">11</div>
+                                                        <div style="line-height:130%">12</div>
+                                                        <div style="line-height:130%">13</div>
+                                                        <div style="line-height:130%">14</div>
+                                                    </div>
+                                                </td>
+                                                <td style="padding:6px 0;text-align:left">
+                                                    <div
+                                                        style="margin:0;padding:0;color:#f0f0f0;font-family:Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;line-height:130%">
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">//&nbsp;#&nbsp;ellipsis</span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">@mixin&nbsp;ellipsis</span>(<span
+                                                                style="color:#a8ff58">$line</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#a8ff58">&nbsp;1,&nbsp;$line-height:&nbsp;null</span>)<span
+                                                                style="color:#ff3399">&nbsp;</span>{<span style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;overflow</span><span style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;hidden</span><span style="color:#ff3399">;</span><span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;text-overflow</span><span
+                                                                style="color:#ff3399">:</span><span style="color:#E083FF">&nbsp;ellipsis</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">&nbsp;&nbsp;@if&nbsp;1&nbsp;==&nbsp;$line&nbsp;</span>{<span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;white-space</span><span
+                                                                style="color:#ff3399">:</span><span style="color:#E083FF">&nbsp;nowrap</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;</span>}<span style="color:#ff3399"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#ff3399">&nbsp;&nbsp;@if&nbsp;1&nbsp;&lt;&nbsp;$line&nbsp;</span>{<span
+                                                                style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;display</span><span
+                                                                style="color:#ff3399">:</span><span style="color:#E083FF">&nbsp;-webkit-box</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;-webkit-box-orient</span><span
+                                                                style="color:#ff3399">:</span><span style="color:#E083FF">&nbsp;vertical</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;-webkit-line-clamp</span><span
+                                                                style="color:#ff3399">:</span><span style="color:#E083FF">&nbsp;$line</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#4be6fa"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#4be6fa">&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;max-height</span><span
+                                                                style="color:#ff3399">:</span><span
+                                                                style="color:#E083FF">&nbsp;$line-height&nbsp;*&nbsp;$line&nbsp;*&nbsp;1em</span><span
+                                                                style="color:#ff3399">;</span><span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span
+                                                                style="color:#E083FF">&nbsp;&nbsp;</span>}<span style="color:#E083FF"></span></div>
+                                                        <div style="padding:0 6px; white-space:pre; line-height:130%"><span style="color:#E083FF"></span>}
+                                                        </div>
+                                                    </div>
+                                                    <div style="text-align:right;margin-top:-13px;margin-right:5px;font-size:9px;font-style:italic"><a
+                                                            href="http://colorscripter.com/info#e" target="_blank"
+                                                            style="color:#4f4f4f;text-decoration:none">Colored by Color Scripter</a></div>
+                                                </td>
+                                                <td style="vertical-align:bottom;padding:0 2px 4px 0"><a href="http://colorscripter.com/info#e"
+                                                        target="_blank" style="text-decoration:none;color:white"><span
+                                                            style="font-size:9px;word-break:normal;background-color:#4f4f4f;color:white;border-radius:10px;padding:1px">cs</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

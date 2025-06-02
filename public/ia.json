@@ -24,15 +24,21 @@
             "id": 1,
             "Level1": "최봄",
             "screenId": "",
-            "path": "/src/page/bchoi",
+            "path": "/src/page/bchoi/",
             "fileName": "",
-            "link": "#",
+            "link": "bchoi.html",
             "Level2": [
                 {
                     "name": "",
                     "screenId": "",
                     "path": "/src/page/bchoi/",
-                    "fileName": "#"
+                    "fileName": "style_guide_methodology.html"
+                },
+                {
+                    "name": "",
+                    "screenId": "",
+                    "path": "/src/page/bchoi/",
+                    "fileName": "style_guide_scss"
                 }
             ]
         }        
