@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퍼블리싱 시스템 구축 및 표준화</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd',
+                            400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8',
+                            800: '#1e40af', 900: '#1e3a8a'
+                        },
+                        neutral: {
+                            50: '#f9fafb', 100: '#f3f4f6', 200: '#e5e7eb', 300: '#d1d5db',
+                            400: '#9ca3af', 500: '#6b7280', 600: '#4b5563', 700: '#374151',
+                            800: '#1f2937', 900: '#111827'
+                        },
+                        success: {
+                            50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac',
+                            400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d',
+                            800: '#166534', 900: '#14532d'
+                        },
+                        warning: {
+                            50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d',
+                            400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309',
+                            800: '#92400e', 900: '#78350f'
+                        },
+                        error: {
+                            50: '#fef2f2', 100: '#fee2e2', 200: '#fecaca', 300: '#fca5a5',
+                            400: '#f87171', 500: '#ef4444', 600: '#dc2626', 700: '#b91c1c',
+                            800: '#991b1b', 900: '#7f1d1d'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Button Components */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Button Variants */
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background-color: #2563eb;
+        }
+        .btn-secondary {
+            background-color: #6b7280;
+            color: white;
+        }
+        .btn-secondary:hover:not(:disabled) {
+            background-color: #4b5563;
+        }
+        .btn-outline {
+            border-color: #3b82f6;
+            color: #3b82f6;
+            background-color: transparent;
+        }
+        .btn-outline:hover:not(:disabled) {
+            background-color: #eff6ff;
+        }
+        .btn-ghost {
+            color: #3b82f6;
+            background-color: transparent;
+        }
+        .btn-ghost:hover:not(:disabled) {
+            background-color: #eff6ff;
+        }
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+        }
+        .btn-danger:hover:not(:disabled) {
+            background-color: #dc2626;
+        }
+        
+        /* Button Sizes */
+        .btn-xs {
+            padding: 0.375rem 0.625rem;
+            font-size: 0.75rem;
+        }
+        .btn-sm {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+        }
+        .btn-md {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+        .btn-lg {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+        }
+        .btn-xl {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+        }
+        
+        /* Form Components */
+        .input, .textarea, .select {
+            display: block;
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .input:focus, .textarea:focus, .select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 1px #3b82f6;
+        }
+        .input-error {
+            border-color: #ef4444;
+        }
+        .input-error:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 1px #ef4444;
+        }
+        .input-success {
+            border-color: #22c55e;
+        }
+        .input-success:focus {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 1px #22c55e;
+        }
+        .input-disabled {
+            background-color: #f9fafb;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+        
+        .checkbox, .radio {
+            width: 1rem;
+            height: 1rem;
+            color: #3b82f6;
+            border: 1px solid #d1d5db;
+            border-radius: 0.25rem;
+        }
+        .radio {
+            border-radius: 50%;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.25rem;
+        }
+        .form-help {
+            margin-top: 0.25rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        .form-error {
+            margin-top: 0.25rem;
+            font-size: 0.875rem;
+            color: #ef4444;
+        }
+        .form-success {
+            margin-top: 0.25rem;
+            font-size: 0.875rem;
+            color: #22c55e;
+        }
+        
+        /* Navigation Components */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-menu {
+            position: absolute;
+            right: 0;
+            z-index: 10;
+            margin-top: 0.5rem;
+            width: 4rem;
+            background-color: white;
+            border-radius: 0.375rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+        .dropdown-item {
+            display: block;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            color: #374151;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+        .dropdown-item:hover {
+            background-color: #f3f4f6;
+            color: #111827;
+        }
+        .dropdown-divider {
+            border-top: 1px solid #e5e7eb;
+            margin: 0.25rem 0;
+        }
+        
+        .tabs {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .tabs-nav {
+            display: flex;
+            margin-bottom: -1px;
+            gap: 2rem;
+        }
+        .tab-item {
+            padding: 0.5rem 0.25rem;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            font-size: 0.875rem;
+            background: none;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .tab-item-active {
+            border-bottom-color: #3b82f6;
+            color: #3b82f6;
+        }
+        .tab-item-inactive {
+            color: #6b7280;
+        }
+        .tab-item-inactive:hover {
+            color: #374151;
+            border-bottom-color: #d1d5db;
+        }
+        .tab-content {
+            margin-top: 1rem;
+        }
+        .tab-pane.hidden {
+            display: none;
+        }
+        
+        /* Modal Components */
+        .modal-overlay {
+            position: fixed;
+            background-color: rgba(107, 114, 128, 0.75);
+            z-index: 50;
+            inset:0;
+        }
+        .modal-container {
+            position: fixed;
+            z-index: 50;
+            overflow-y: auto;
+            inset:0;
+        }
+        .modal-wrapper {
+            display: flex;
+            min-height: 100%;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+        }
+        .modal {
+            position: relative;
+            transform: scale(1);
+            overflow: hidden;
+            border-radius: 0.5rem;
+            background-color: white;
+            text-align: left;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: all 0.2s;
+        }
+        .modal-sm {
+            width: 100%;
+            max-width: 24rem;
+        }
+        .modal-md {
+            width: 100%;
+            max-width: 28rem;
+        }
+        .modal-lg {
+            width: 100%;
+            max-width: 32rem;
+        }
+        .modal-xl {
+            width: 100%;
+            max-width: 36rem;
+        }
+        .modal-full {
+            width: 100%;
+            max-width: 56rem;
+        }
+        .modal-header {
+            background-color: white;
+            padding: 1.5rem 1.5rem 1rem 1.5rem;
+        }
+        .modal-body {
+            background-color: white;
+            padding: 1.5rem;
+        }
+        .modal-footer {
+            background-color: #f9fafb;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            flex-direction: row-reverse;
+            gap: 0.75rem;
+        }
+        .modal-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            line-height: 1.5;
+            color: #111827;
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .modal-close:hover {
+            background-color: #f3f4f6;
+        }
+        
+        .animate-scale-in {
+            animation: scaleIn 0.2s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .container {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        @media (min-width: 640px) {
+            .container {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .container {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        /* textarea */
+        .auto-height{width:100%;height:200px;padding:5px;background: #000;border-radius: 5px;font-size: 12px;color:#ccc}
+    </style>
+</head>
+<body class="bg-neutral-50">
+    <!-- Navigation -->
+    <nav class="w-full bg-white shadow-sm border-b border-neutral-200 sticky top-0 z-40 px-3 sm:px-4 min-w-0">
+        <div class="container">
+            <div class="flex justify-between items-center py-3 sm:h-16">
+                <div class="flex items-center gap-4">
+                    <h1 class="text-xl font-bold text-neutral-900"><a href="../examples/component-showcase.html">퍼블리싱 시스템 구축 및 표준화</a></h1>
+                </div>
+                <div class="flex items-center space-x-3 sm:space-x-4 flex-nowrap overflow-x-auto pb-1 scrollbar-thin">
+                    <a href="./docs/style-guide.html" class="btn btn-outline btn-sm whitespace-nowrap" aria-label="스타일 가이드로 이동">스타일 가이드</a>
+                    <!-- <button class="btn btn-primary btn-sm whitespace-nowrap" aria-label=""></button> -->
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-neutral-900 mb-4">컴포넌트 쇼케이스</h2>
+                <p class="text-xl text-neutral-600 max-w-3xl mx-auto">
+                    퍼블리싱 시스템 구축 및 표준화 컴포넌트 입니다.
+                </p>
+            </div>
+
+            <!-- Buttons Section -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-bold text-neutral-900 mb-6">Buttons</h2>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="space-y-6">
+                        <!-- Button Styles -->
+                        <div>
+                            <h3 class="text-lg font-medium text-neutral-900 mb-4">스타일</h3>
+                            <div class="flex flex-wrap gap-4">
+                                <button class="btn btn-primary btn-md">Primary</button>
+                                <button class="btn btn-secondary btn-md">Secondary</button>
+                                <button class="btn btn-outline btn-md">Outline</button>
+                                <button class="btn btn-ghost btn-md">Ghost</button>
+                                <button class="btn btn-danger btn-md">Danger</button>
+                            </div>
+                        </div>
+
+                        <!-- Button Sizes -->
+                        <div>
+                            <h3 class="text-lg font-medium text-neutral-900 mb-4">크기</h3>
+                            <div class="flex flex-wrap items-center gap-4">
+                                <button class="btn btn-primary btn-xs">Extra Small</button>
+                                <button class="btn btn-primary btn-sm">Small</button>
+                                <button class="btn btn-primary btn-md">Medium</button>
+                                <button class="btn btn-primary btn-lg">Large</button>
+                                <button class="btn btn-primary btn-xl">Extra Large</button>
+                            </div>
+                        </div>
+
+                        <!-- Button States -->
+                        <div>
+                            <h3 class="text-lg font-medium text-neutral-900 mb-4">상태</h3>
+                            <div class="flex flex-wrap gap-4">
+                                <button class="btn btn-primary btn-md">Default</button>
+                                <button class="btn btn-primary btn-md" disabled>Disabled</button>
+                                <button class="btn btn-primary btn-md grid grid-cols-[auto,1fr] items-center gap-2" aria-busy="true">
+									<svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+									  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+									  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+									</svg>
+									<span>Loading</span>
+								</button>
+								  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <article>
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">기본 구조</h3>
+                    <textarea id="button-code-area" class="auto-height" rows="8" cols="40" readonly></textarea>
+
+					<h3 class="text-sm font-bold text-neutral-900 my-6">변수</h3>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="table-auto w-full text-2x">
+                            <thead class="text-left">
+                              <tr>
+                                <th class="px-4 py-2">변수</th>
+                                <th class="px-4 py-2">설명</th>
+                                <th class="px-4 py-2">예시</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">variant</td>
+                                <td class="px-4 py-2">버튼 스타일</td>
+                                <td class="px-4 py-2">primary, secondary, outline, ghost, danger</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">size</td>
+                                <td class="px-4 py-2">버튼 크기</td>
+                                <td class="px-4 py-2">xs, sm, md, lg, xl</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">padding</td>
+                                <td class="px-4 py-2">패딩 크기</td>
+                                <td class="px-4 py-2">px-2(xs), px-3(sm), px-4(md), px-5(lg), px-6(xl)</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">textSize</td>
+                                <td class="px-4 py-2">텍스트 크기</td>
+                                <td class="px-4 py-2">text-xs(xs), text-sm(sm, md), text-base(lg, xl)</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">border</td>
+                                <td class="px-4 py-2">테두리 스타일</td>
+                                <td class="px-4 py-2">border border-gray-300(secondary, outline), border-transparent(primary, ghost)</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">bgColor</td>
+                                <td class="px-4 py-2">배경색</td>
+                                <td class="px-4 py-2">bg-primary-600(primary), bg-transparent(ghost)</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">textColor</td>
+                                <td class="px-4 py-2">텍스트 색상</td>
+                                <td class="px-4 py-2">text-white(primary, danger), text-gray-700(secondary, ghost)</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">hover</td>
+                                <td class="px-4 py-2">호버 상태 스타일</td>
+                                <td class="px-4 py-2">hover:bg-primary-700(primary), hover:bg-gray-100(ghost)</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">active</td>
+                                <td class="px-4 py-2">활성 상태 스타일</td>
+                                <td class="px-4 py-2">active:bg-primary-800(primary)</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">ringColor</td>
+                                <td class="px-4 py-2">포커스 링 색상</td>
+                                <td class="px-4 py-2">focus:ring-primary-500(primary), focus:ring-red-500(danger)</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">disabled</td>
+                                <td class="px-4 py-2">비활성화 스타일</td>
+                                <td class="px-4 py-2">disabled:opacity-50 disabled:cursor-not-allowed</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">loading</td>
+                                <td class="px-4 py-2">로딩 상태 스타일</td>
+                                <td class="px-4 py-2">grid grid-cols-[auto,1fr] items-center gap-2</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">ariaAttributes</td>
+                                <td class="px-4 py-2">접근성 속성</td>
+                                <td class="px-4 py-2">aria-disabled="true", aria-busy="true" | 비활성,로딩</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">icon</td>
+                                <td class="px-4 py-2">SVG 아이콘</td>
+                                <td class="px-4 py-2">&lt;svg class="w-4 h-4 mr-2"&gt;...&lt;/svg&gt;</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">buttonText</td>
+                                <td class="px-4 py-2">버튼 텍스트</td>
+                                <td class="px-4 py-2">Primary, Cancel 등</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- Form Components Section -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-bold text-neutral-900 mb-6">Form Components</h2>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <!-- Text Input -->
+                            <div>
+                                <label class="form-label" for="demo-text">텍스트 입력</label>
+                                <input type="text" id="demo-text" class="input" placeholder="텍스트를 입력하세요">
+                            </div>
+
+                            <!-- Email Input -->
+                            <div>
+                                <label class="form-label" for="demo-email">이메일</label>
+                                <input type="email" id="demo-email" class="input" placeholder="email@example.com">
+                                <p class="form-help">유효한 이메일 주소를 입력하세요.</p>
+                            </div>
+
+                            <!-- Error State -->
+                            <div>
+                                <label class="form-label" for="demo-error">에러 상태</label>
+                                <input type="text" id="demo-error" class="input input-error" value="잘못된 값">
+                                <p class="form-error">올바른 값을 입력하세요.</p>
+                            </div>
+
+                            <!-- Success State -->
+                            <div>
+                                <label class="form-label" for="demo-success">성공 상태</label>
+                                <input type="text" id="demo-success" class="input input-success" value="올바른 값">
+                                <p class="form-success">입력이 완료되었습니다.</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Textarea -->
+                            <div>
+                                <label class="form-label" for="demo-textarea">메시지</label>
+                                <textarea id="demo-textarea" class="textarea" rows="4" placeholder="메시지를 입력하세요"></textarea>
+                            </div>
+
+                            <!-- Select -->
+                            <div>
+                                <label class="form-label" for="demo-select">선택</label>
+                                <select id="demo-select" class="select">
+                                    <option>옵션을 선택하세요</option>
+                                    <option>옵션 1</option>
+                                    <option>옵션 2</option>
+                                    <option>옵션 3</option>
+                                </select>
+                            </div>
+
+                            <!-- Checkbox -->
+                            <div class="space-y-2">
+                                <label class="form-label">체크박스</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="checkbox" checked>
+                                        <span class="ml-2 text-sm text-neutral-700">옵션 1</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="checkbox" class="checkbox">
+                                        <span class="ml-2 text-sm text-neutral-700">옵션 2</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Radio -->
+                            <div class="space-y-2">
+                                <label class="form-label">라디오 버튼</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center">
+                                        <input type="radio" name="demo-radio" class="radio" checked>
+                                        <span class="ml-2 text-sm text-neutral-700">선택 1</span>
+                                    </label>
+                                    <label class="flex items-center">
+                                        <input type="radio" name="demo-radio" class="radio">
+                                        <span class="ml-2 text-sm text-neutral-700">선택 2</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <article>
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">Textarea 컴포넌트</h3>
+                    <!-- 코드 표시 -->
+                    <div class="mb-4">
+                        <h4 class="text-xs font-semibold text-neutral-700 mb-2">코드:</h4>
+                        <textarea id="textarea-code-area" class="auto-height" rows="8" cols="40" readonly></textarea>
+                    </div>
+                
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">변수</h3>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="table-auto w-full text-2x">
+                            <thead class="text-left">
+                              <tr>
+                                <th class="px-4 py-2">변수</th>
+                                <th class="px-4 py-2">설명</th>
+                                <th class="px-4 py-2">예시</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">`textareaId`</td>
+                                <td class="px-4 py-2">텍스트에어리어 ID</td>
+                                <td class="px-4 py-2">`message-input`</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">`label`</td>
+                                <td class="px-4 py-2">라벨 텍스트</td>
+                                <td class="px-4 py-2">`메시지`</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">`labelClasses`</td>
+                                <td class="px-4 py-2">라벨 추가 클래스</td>
+                                <td class="px-4 py-2">`text-gray-700`</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">`borderColor`</td>
+                                <td class="px-4 py-2">테두리 색상</td>
+                                <td class="px-4 py-2">`border-gray-300`</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">`ringColor`</td>
+                                <td class="px-4 py-2">포커스 링 색상</td>
+                                <td class="px-4 py-2">`primary-500`</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">`textareaClasses`</td>
+                                <td class="px-4 py-2">텍스트에어리어 추가 클래스</td>
+                                <td class="px-4 py-2">`bg-gray-50`</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">`placeholder`</td>
+                                <td class="px-4 py-2">플레이스홀더 텍스트</td>
+                                <td class="px-4 py-2">`메시지를 입력하세요`</td>
+                              </tr>
+                              <tr class="border-b border-gray-300">
+                                <td class="px-4 py-2">`ariaAttributes`</td>
+                                <td class="px-4 py-2">접근성 속성</td>
+                                <td class="px-4 py-2">`aria-label="메시지 입력"`</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+                <article>
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">input 컴포넌트</h3>
+                    <div class="mb-4">
+                        <h4 class="text-xs font-semibold text-neutral-700 mb-2">코드:</h4>
+                        <textarea id="input-code-area" class="auto-height" rows="6" cols="40" readonly></textarea>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">변수</h3>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="table-auto w-full text-2x">
+                            <thead class="text-left">
+                                <tr>
+                                    <th class="px-4 py-2">변수</th>
+                                    <th class="px-4 py-2">설명</th>
+                                    <th class="px-4 py-2">예시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">inputId</td>
+                                    <td class="px-4 py-2">입력 ID</td>
+                                    <td class="px-4 py-2">text-input, email-input</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">type</td>
+                                    <td class="px-4 py-2">입력 타입</td>
+                                    <td class="px-4 py-2">text, email</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">label</td>
+                                    <td class="px-4 py-2">라벨 텍스트</td>
+                                    <td class="px-4 py-2">텍스트 입력, 이메일</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">labelClasses</td>
+                                    <td class="px-4 py-2">라벨 추가 클래스</td>
+                                    <td class="px-4 py-2">text-red-600(에러), text-green-600(성공)</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">borderColor</td>
+                                    <td class="px-4 py-2">테두리 색상</td>
+                                    <td class="px-4 py-2">border-gray-300, border-red-600(에러), border-green-600(성공)</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">ringColor</td>
+                                    <td class="px-4 py-2">포커스 링 색상</td>
+                                    <td class="px-4 py-2">primary-500, red-500(에러), green-500(성공)</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">inputClasses</td>
+                                    <td class="px-4 py-2">입력 추가 클래스</td>
+                                    <td class="px-4 py-2">bg-gray-50</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">stateClasses</td>
+                                    <td class="px-4 py-2">상태 클래스</td>
+                                    <td class="px-4 py-2">border-red-600(에러), border-green-600(성공)</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">placeholder</td>
+                                    <td class="px-4 py-2">플레이스홀더 텍스트</td>
+                                    <td class="px-4 py-2">유효한 이메일 주소를 입력하세요</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">ariaAttributes</td>
+                                    <td class="px-4 py-2">접근성 속성</td>
+                                    <td class="px-4 py-2">aria-invalid="true"(에러)</td>
+                                </tr>
+                            </tbody>
+                        </table>                        
+                        
+                    </div>
+                </article>
+
+                <article>
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">select 컴포넌트</h3>
+                    <div class="mb-4">
+                        <h4 class="text-xs font-semibold text-neutral-700 mb-2">코드:</h4>
+                        <textarea id="select-code-area" class="auto-height" rows="6" cols="40" readonly></textarea>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">변수</h3>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="table-auto w-full text-2x">
+                            <thead class="text-left">
+                                <tr>
+                                    <th class="px-4 py-2">변수</th>
+                                    <th class="px-4 py-2">설명</th>
+                                    <th class="px-4 py-2">예시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">selectId</td>
+                                    <td class="px-4 py-2">선택 ID</td>
+                                    <td class="px-4 py-2">select-input</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">label</td>
+                                    <td class="px-4 py-2">라벨 텍스트</td>
+                                    <td class="px-4 py-2">선택</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">selectClasses</td>
+                                    <td class="px-4 py-2">선택 추가 클래스</td>
+                                    <td class="px-4 py-2">bg-gray-50</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">placeholder</td>
+                                    <td class="px-4 py-2">플레이스홀더 텍스트</td>
+                                    <td class="px-4 py-2">옵션을 선택하세요</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">options</td>
+                                    <td class="px-4 py-2">옵션 목록</td>
+                                    <td class="px-4 py-2">&lt;option&gt;옵션 1&lt;/option&gt;</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">ariaAttributes</td>
+                                    <td class="px-4 py-2">접근성 속성</td>
+                                    <td class="px-4 py-2">aria-label="옵션 선택"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </article>
+
+                <article>
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">checkbox 컴포넌트</h3>
+                    <div class="mb-4">
+                        <h4 class="text-xs font-semibold text-neutral-700 mb-2">코드:</h4>
+                        <textarea id="checkbox-code-area" class="auto-height" rows="6" cols="40" readonly></textarea>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">변수</h3>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="table-auto w-full text-2x">
+                            <thead class="text-left">
+                                <tr>
+                                    <th class="px-4 py-2">변수</th>
+                                    <th class="px-4 py-2">설명</th>
+                                    <th class="px-4 py-2">예시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">checkboxes</td>
+                                    <td class="px-4 py-2">체크박스 객체 배열</td>
+                                    <td class="px-4 py-2">[{ id: &quot;cb1&quot;, label: &quot;옵션 1&quot;, checked: true }, ...]</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">id</td>
+                                    <td class="px-4 py-2">체크박스 ID</td>
+                                    <td class="px-4 py-2">checkbox-1</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">label</td>
+                                    <td class="px-4 py-2">라벨 텍스트</td>
+                                    <td class="px-4 py-2">옵션 1</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">checkboxClasses</td>
+                                    <td class="px-4 py-2">체크박스 추가 클래스</td>
+                                    <td class="px-4 py-2">checkbox-lg, -sm</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">stateClasses</td>
+                                    <td class="px-4 py-2">상태 클래스</td>
+                                    <td class="px-4 py-2">checked, disabled, checkbox-error</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">checked</td>
+                                    <td class="px-4 py-2">선택 여부</td>
+                                    <td class="px-4 py-2">checked</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">disabled</td>
+                                    <td class="px-4 py-2">비활성화 여부</td>
+                                    <td class="px-4 py-2">disabled</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">ariaAttributes</td>
+                                    <td class="px-4 py-2">접근성 속성</td>
+                                    <td class="px-4 py-2">aria-checked=&quot;true&quot;, aria-describedby=&quot;hint-id&quot;</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">containerClasses</td>
+                                    <td class="px-4 py-2">컨테이너 추가 클래스</td>
+                                    <td class="px-4 py-2">space-y-2 (체크박스 간격)</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">labelClasses</td>
+                                    <td class="px-4 py-2">라벨 추가 클래스</td>
+                                    <td class="px-4 py-2">text-error-600 (에러 상태)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- Navigation Components -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-bold text-neutral-900 mb-6">Navigation Components</h2>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="space-y-8">
+                        <!-- Dropdown -->
+                        <div>
+                            <h3 class="text-lg font-medium text-neutral-900 mb-4">Dropdown</h3>
+                            <div class="flex gap-4">
+                                <div class="dropdown">
+                                    <button class="btn btn-outline btn-md" onclick="toggleDropdown('demo-dropdown1')">
+                                        기본 드롭다운
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </button>
+                                    <div id="demo-dropdown1" class="dropdown-menu hidden">
+                                        <div class="py-1">
+                                            <a href="#" class="dropdown-item">메뉴 1</a>
+                                            <a href="#" class="dropdown-item">메뉴 2</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a href="#" class="dropdown-item">메뉴 3</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-ghost btn-md p-2" onclick="toggleDropdown('demo-dropdown2')">
+                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path>
+                                        </svg>
+                                    </button>
+                                    <div id="demo-dropdown2" class="dropdown-menu hidden">
+                                        <div class="py-1">
+                                            <a href="#" class="dropdown-item">
+                                                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                </svg>
+                                                편집
+                                            </a>
+                                            <a href="#" class="dropdown-item">
+                                                <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                                </svg>
+                                                복사
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tabs -->
+                        <div>
+                            <h3 class="text-lg font-medium text-neutral-900 mb-4">Tabs</h3>
+                            <div class="tabs">
+                                <nav class="tabs-nav">
+                                    <button class="tab-item tab-item-active" onclick="switchTab('tab1', this)">탭 1</button>
+                                    <button class="tab-item tab-item-inactive" onclick="switchTab('tab2', this)">탭 2</button>
+                                    <button class="tab-item tab-item-inactive" onclick="switchTab('tab3', this)">탭 3</button>
+                                </nav>
+                            </div>
+                            <div class="tab-content">
+                                <div id="tab1" class="tab-pane">
+                                    <p class="text-neutral-600">첫 번째 탭의 내용.</p>
+                                </div>
+                                <div id="tab2" class="tab-pane hidden">
+                                    <p class="text-neutral-600">두 번째 탭의 내용.</p>
+                                </div>
+                                <div id="tab3" class="tab-pane hidden">
+                                    <p class="text-neutral-600">세 번째 탭의 내용.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <article>
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">dropdown 컴포넌트</h3>
+                    <div class="mb-4">
+                        <h4 class="text-xs font-semibold text-neutral-700 mb-2">코드:</h4>
+                        <textarea id="dropdown-code-area" class="auto-height" rows="6" cols="40" readonly="" style="height: 270px;"></textarea>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">변수</h3>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="table-auto w-full text-2x">
+                            <thead class="text-left">
+                                <tr>
+                                    <th class="px-4 py-2">변수</th>
+                                    <th class="px-4 py-2">설명</th>
+                                    <th class="px-4 py-2">예시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">variant</td>
+                                    <td class="px-4 py-2">버튼 스타일</td>
+                                    <td class="px-4 py-2">primary</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">size</td>
+                                    <td class="px-4 py-2">패딩 크기</td>
+                                    <td class="px-4 py-2">4(md), 3(sm)</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">ringColor</td>
+                                    <td class="px-4 py-2">포커스 링 색상</td>
+                                    <td class="px-4 py-2">primary-500</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">buttonText</td>
+                                    <td class="px-4 py-2">버튼 텍스트</td>
+                                    <td class="px-4 py-2">기본 드롭다운</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">items</td>
+                                    <td class="px-4 py-2">메뉴 항목</td>
+                                    <td class="px-4 py-2">&lt;li&gt;&lt;a href=&quot;#&quot; class=&quot;block px-4 py-2 text-gray-700 hover:bg-gray-100&quot;&gt;메뉴 1&lt;/a&gt;&lt;/li&gt;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </article>
+
+                <article>
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">tab 컴포넌트</h3>
+                    <div class="mb-4">
+                        <h4 class="text-xs font-semibold text-neutral-700 mb-2">코드:</h4>
+                        <textarea id="tab-code-area" class="auto-height" rows="6" cols="40" readonly="" style="height: 270px;"></textarea>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">변수</h3>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="table-auto w-full text-2x">
+                            <thead class="text-left">
+                                <tr>
+                                    <th class="px-4 py-2">변수</th>
+                                    <th class="px-4 py-2">설명</th>
+                                    <th class="px-4 py-2">예시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">tabs</td>
+                                    <td class="px-4 py-2">탭 객체 배열</td>
+                                    <td class="px-4 py-2">[{ id: &quot;tab1&quot;, label: &quot;탭 1&quot;, content: &quot;내용&quot;, active: true }, ...]</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">id</td>
+                                    <td class="px-4 py-2">탭 ID</td>
+                                    <td class="px-4 py-2">tab1</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">label</td>
+                                    <td class="px-4 py-2">탭 버튼 텍스트</td>
+                                    <td class="px-4 py-2">탭 1</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">content</td>
+                                    <td class="px-4 py-2">탭 패널 내용</td>
+                                    <td class="px-4 py-2">&lt;p&gt;첫 번째 탭의 내용입니다.&lt;/p&gt;</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">active</td>
+                                    <td class="px-4 py-2">활성 여부</td>
+                                    <td class="px-4 py-2">true, false</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">tabClasses</td>
+                                    <td class="px-4 py-2">탭 버튼 추가 클래스</td>
+                                    <td class="px-4 py-2">text-sm font-bold</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">panelClasses</td>
+                                    <td class="px-4 py-2">탭 패널 추가 클래스</td>
+                                    <td class="px-4 py-2">p-4 bg-neutral-50</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">activeClass</td>
+                                    <td class="px-4 py-2">활성 탭 버튼 클래스</td>
+                                    <td class="px-4 py-2">tab-active border-primary-500</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">activePanelClass</td>
+                                    <td class="px-4 py-2">활성 탭 패널 클래스</td>
+                                    <td class="px-4 py-2">block (vs hidden)</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">containerClasses</td>
+                                    <td class="px-4 py-2">컨테이너 추가 클래스</td>
+                                    <td class="px-4 py-2">max-w-md</td>
+                                </tr>
+                            </tbody>
+                        </table>                        
+                        
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- Modal Component -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-bold text-neutral-900 mb-6">Modal</h2>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex gap-4">
+                        <button class="btn btn-primary btn-md" onclick="openModal('demo-modal-basic')">기본 모달</button>
+                        <button class="btn btn-danger btn-md" onclick="openModal('demo-modal-confirm')">확인 모달</button>
+                        <button class="btn btn-secondary btn-md" onclick="openModal('demo-modal-form')">폼 모달</button>
+                    </div>
+                </div>
+
+                <article>
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">Modal 컴포넌트</h3>
+                    <div class="mb-4">
+                        <h4 class="text-xs font-semibold text-neutral-700 mb-2">코드:</h4>
+                        <textarea id="modal-code-area" class="auto-height" rows="6" cols="40" readonly="" style="height: 270px;"></textarea>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">변수</h3>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="table-auto w-full text-2x">
+                            <thead class="text-left">
+                                <tr>
+                                    <th class="px-4 py-2">변수</th>
+                                    <th class="px-4 py-2">설명</th>
+                                    <th class="px-4 py-2">예시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">modalId</td>
+                                    <td class="px-4 py-2">모달 ID</td>
+                                    <td class="px-4 py-2">basic-modal</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">visibility</td>
+                                    <td class="px-4 py-2">표시 상태</td>
+                                    <td class="px-4 py-2">hidden, </td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">modalTitle</td>
+                                    <td class="px-4 py-2">모달 제목</td>
+                                    <td class="px-4 py-2">모달의 제목</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">modalContent</td>
+                                    <td class="px-4 py-2">모달 내용</td>
+                                    <td class="px-4 py-2">모달의 내용</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">formContent</td>
+                                    <td class="px-4 py-2">폼 내용</td>
+                                    <td class="px-4 py-2">&lt;input&gt;</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">buttons</td>
+                                    <td class="px-4 py-2">버튼 목록</td>
+                                    <td class="px-4 py-2">&lt;button&gt;취소&lt;/button&gt;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- Layout Components -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-bold text-neutral-900 mb-6">Layout Components</h2>
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="space-y-8">
+                        <!-- Grid -->
+                        <div>
+                            <h3 class="text-lg font-medium text-neutral-900 mb-4">Grid System</h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="bg-primary-100 p-4 rounded text-center text-primary-800">Grid Item 1</div>
+                                <div class="bg-primary-100 p-4 rounded text-center text-primary-800">Grid Item 2</div>
+                                <div class="bg-primary-100 p-4 rounded text-center text-primary-800">Grid Item 3</div>
+                            </div>
+                        </div>
+
+                        <!-- Container -->
+                        <div>
+                            <h3 class="text-lg font-medium text-neutral-900 mb-4">Container</h3>
+                            <div class="bg-neutral-100 p-1 rounded">
+                                <div class="container bg-primary-50 p-4 rounded">
+                                    <p class="text-primary-800 text-center">Container Content</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <article>
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">grid</h3>
+                    <div class="mb-4">
+                        <h4 class="text-xs font-semibold text-neutral-700 mb-2">코드:</h4>
+                        <textarea id="grid-code-area" class="auto-height" rows="3" cols="40" readonly=""></textarea>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">변수</h3>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="table-auto w-full text-2x">
+                            <thead class="text-left">
+                                <tr>
+                                    <th class="px-4 py-2">변수</th>
+                                    <th class="px-4 py-2">설명</th>
+                                    <th class="px-4 py-2">예시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">gridCols</td>
+                                    <td class="px-4 py-2">그리드 열 수</td>
+                                    <td class="px-4 py-2">1, 2, 3, sm:2 md:3</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">gap</td>
+                                    <td class="px-4 py-2">그리드 간격</td>
+                                    <td class="px-4 py-2">4, 6, 8</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">gridClasses</td>
+                                    <td class="px-4 py-2">그리드 추가 클래스</td>
+                                    <td class="px-4 py-2">auto-rows-fr, grid-flow-col</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">items</td>
+                                    <td class="px-4 py-2">그리드 아이템 배열</td>
+                                    <td class="px-4 py-2">[{ content: &quot;Grid Item 1&quot; }, ...]</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">itemClasses</td>
+                                    <td class="px-4 py-2">아이템 추가 클래스</td>
+                                    <td class="px-4 py-2">bg-primary-100 p-4 rounded</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">ariaAttributes</td>
+                                    <td class="px-4 py-2">접근성 속성</td>
+                                    <td class="px-4 py-2">role=&quot;grid&quot;, aria-label=&quot;Grid&quot;</td>
+                                </tr>
+                            </tbody>
+                        </table>                      
+                        
+                    </div>
+                </article>
+
+                <article>
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">container</h3>
+                    <div class="mb-4">
+                        <h4 class="text-xs font-semibold text-neutral-700 mb-2">코드:</h4>
+                        <textarea id="container-code-area" class="auto-height" rows="3" cols="40" readonly="" style=""></textarea>
+                    </div>
+
+                    <h3 class="text-sm font-bold text-neutral-900 my-6">변수</h3>
+                    <div class="overflow-x-auto text-xs">
+                        <table class="table-auto w-full text-2x">
+                            <thead class="text-left">
+                                <tr>
+                                    <th class="px-4 py-2">변수</th>
+                                    <th class="px-4 py-2">설명</th>
+                                    <th class="px-4 py-2">예시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">width</td>
+                                    <td class="px-4 py-2">최대 너비</td>
+                                    <td class="px-4 py-2">sm, md, lg, xl</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">padding</td>
+                                    <td class="px-4 py-2">패딩 크기</td>
+                                    <td class="px-4 py-2">4, 6, 8</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">containerClasses</td>
+                                    <td class="px-4 py-2">추가 클래스</td>
+                                    <td class="px-4 py-2">bg-gray-100, shadow-md</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">content</td>
+                                    <td class="px-4 py-2">컨테이너 내용</td>
+                                    <td class="px-4 py-2">&lt;p&gt;Container Content&lt;/p&gt;</td>
+                                </tr>
+                                <tr class="border-b border-gray-300">
+                                    <td class="px-4 py-2">ariaAttributes</td>
+                                    <td class="px-4 py-2">접근성 속성</td>
+                                    <td class="px-4 py-2">role=&quot;region&quot;, aria-label=&quot;Main&quot;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        
+                    </div>
+                </article>
+
+            </section>
+        </div>
+    </div>
+
+    <!-- Demo Modals -->
+    <!-- Basic Modal -->
+    <div id="demo-modal-basic" class="modal-overlay hidden" onclick="closeModal('demo-modal-basic')">
+        <div class="modal-container">
+            <div class="modal-wrapper">
+                <div class="modal modal-md animate-scale-in" onclick="event.stopPropagation()">
+                    <div class="modal-header">
+                        <h3 class="modal-title">기본 모달</h3>
+                        <button class="modal-close" onclick="closeModal('demo-modal-basic')">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-neutral-600">기본 모달의 내용이 들어가는 영역.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline btn-md mr-3" onclick="closeModal('demo-modal-basic')">취소</button>
+                        <button class="btn btn-primary btn-md" onclick="closeModal('demo-modal-basic')">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="demo-modal-confirm" class="modal-overlay hidden" onclick="closeModal('demo-modal-confirm')">
+        <div class="modal-container">
+            <div class="modal-wrapper">
+                <div class="modal modal-sm animate-scale-in" onclick="event.stopPropagation()">
+                    <div class="modal-header">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-error-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="modal-title text-error-900">얼럿</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-neutral-600">정말로 이 작업을 수행하시겠습니까?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline btn-md mr-3" onclick="closeModal('demo-modal-confirm')">취소</button>
+                        <button class="btn btn-danger btn-md" onclick="closeModal('demo-modal-confirm')">확인</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Modal -->
+    <div id="demo-modal-form" class="modal-overlay hidden" onclick="closeModal('demo-modal-form')">
+        <div class="modal-container">
+            <div class="modal-wrapper">
+                <div class="modal modal-lg animate-scale-in" onclick="event.stopPropagation()">
+                    <div class="modal-header">
+                        <h3 class="modal-title">폼 모달</h3>
+                        <button class="modal-close" onclick="closeModal('demo-modal-form')">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="space-y-4">
+                            <div>
+                                <label class="form-label" for="modal-name">이름</label>
+                                <input type="text" id="modal-name" class="input" placeholder="이름을 입력하세요">
+                            </div>
+                            <div>
+                                <label class="form-label" for="modal-email">이메일</label>
+                                <input type="email" id="modal-email" class="input" placeholder="email@example.com">
+                            </div>
+                            <div>
+                                <label class="form-label" for="modal-message">메시지</label>
+                                <textarea id="modal-message" class="textarea" rows="3" placeholder="메시지를 입력하세요"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-outline btn-md mr-3" onclick="closeModal('demo-modal-form')">취소</button>
+                        <button class="btn btn-primary btn-md" onclick="closeModal('demo-modal-form')">저장</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dropdown functionality
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            const isHidden = dropdown.classList.contains('hidden');
+            
+            // 모든 드롭다운 닫기
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.add('hidden');
+            });
+            
+            // 클릭된 드롭다운 토글
+            if (isHidden) {
+                dropdown.classList.remove('hidden');
+            }
+        }
+
+        // Tab functionality
+        function switchTab(tabId, button) {
+            // 모든 탭 내용 숨기기
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.add('hidden');
+            });
+            
+            // 모든 탭 버튼 비활성화
+            document.querySelectorAll('.tab-item').forEach(item => {
+                item.classList.remove('tab-item-active');
+                item.classList.add('tab-item-inactive');
+            });
+            
+            // 선택된 탭 활성화
+            document.getElementById(tabId).classList.remove('hidden');
+            button.classList.remove('tab-item-inactive');
+            button.classList.add('tab-item-active');
+        }
+
+        // Modal functionality
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // 외부 클릭 시 드롭다운 닫기
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.add('hidden');
+                });
+            }
+        });
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const openModals = document.querySelectorAll('.modal-overlay:not(.hidden)');
+                openModals.forEach(modal => {
+                    modal.classList.add('hidden');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+    </script>
+
+    <script>
+        
+
+        const codeSnippets = [
+            {
+                targetId: 'button-code-area',
+                label: 'button 컴포넌트',
+                code: `
+    <button type="button"
+        data-component="button"
+        data-variant="{{variant}}"
+        data-size="{{size}}"
+        class="btn btn-{{variant}} btn-{{size}} inline-flex items-center justify-center gap-2 {{padding}} py-2 {{textSize}} font-medium rounded-md {{border}} {{bgColor}} {{textColor}} shadow-sm transition-all duration-200 ease-in-out {{hover}} focus:outline-none focus:ring-2 focus:ring-{{ringColor}} focus:ring-offset-2 {{active}} {{disabled}} {{loading}}"
+        {{ariaAttributes}}
+    >
+        {{icon}}
+        {{buttonText}}
+</button>
+                `
+            },
+            {
+                targetId: 'textarea-code-area',
+                label: 'textarea 컴포넌트',
+                code: `
+        <div class="mb-4">
+            <label for="{{textareaId}}" class="block text-gray-700 text-sm font-medium mb-1 {{labelClasses}}">{{label}}</label>
+            <textarea 
+                id="{{textareaId}}" 
+                class="w-full border {{borderColor}} rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-{{ringColor}} focus:ring-offset-2 {{textareaClasses}}"
+                rows="4"
+                placeholder="{{placeholder}}"
+                {{ariaAttributes}}
+            ></textarea>
+</div>`
+            },
+            {
+                targetId: 'input-code-area',
+                label: 'input 컴포넌트',
+                code: `
+                <div class="mb-4">
+    <label for="{{inputId}}" class="block text-gray-700 text-sm font-medium mb-1 {{labelClasses}}">{{label}}</label>
+    <input 
+        id="{{inputId}}" 
+        type="{{type}}" 
+        class="w-full border {{borderColor}} rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-{{ringColor}} focus:ring-offset-2 {{inputClasses}} {{stateClasses}}"
+        placeholder="{{placeholder}}"
+        {{ariaAttributes}}
+    >
+</div>`
+            },
+            {
+                targetId: 'select-code-area',
+                label: 'select 컴포넌트',
+                code: `
+<div class="mb-4">
+  <label for="{{selectId}}" class="block text-gray-700 text-sm font-medium mb-1">{{label}}</label>
+  <select 
+    id="{{selectId}}" 
+    class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 {{selectClasses}}"
+    {{ariaAttributes}}
+  >
+    <option value="" disabled selected>{{placeholder}}</option>
+    {{options}}
+  </select>
+</div>`
+            },
+            {
+                targetId: 'checkbox-code-area',
+                label: 'checkbox 컴포넌트',
+                code: `
+<div class="mb-4 {{containerClasses}}">
+    {{#each checkboxes}}
+        <label class="flex items-center {{labelClasses}}" for="{{id}}">
+            <input 
+                type="checkbox" 
+                id="{{id}}" 
+                class="checkbox {{checkboxClasses}} {{stateClasses}}" 
+                {{checked}} 
+                {{disabled}} 
+                {{ariaAttributes}}
+            >
+            <span class="ml-2 text-sm text-neutral-700">{{label}}</span>
+        </label>
+    {{/each}}
+</div>`
+            },
+            {
+                targetId: 'dropdown-code-area',
+                label: 'dropdown 컴포넌트',
+                code: `<div class="relative group">
+    <button class="bg-{{variant}}-600 text-white px-{{size}} py-2 rounded-md hover:bg-{{variant}}-700 focus:ring-2 focus:ring-{{ringColor}} focus:ring-offset-2" aria-expanded="false" aria-haspopup="true">
+      {{buttonText}}
+    </button>
+    <ul class="absolute hidden group-hover:block bg-white shadow-md rounded-md mt-2 w-48">
+      {{items}}
+    </ul>
+</div>`
+            },
+            {
+                targetId: 'tab-code-area',
+                label: 'textarea 컴포넌트',
+                code: `<div class="tabs {{containerClasses}}">
+    <div class="border-b border-gray-200">
+        <nav class="-mb-px flex space-x-4" role="tablist">
+            {{#each tabs}}
+                <button 
+                    type="button"
+                    id="tab-{{id}}"
+                    class="tab {{tabClasses}} {{activeClass}}"
+                    role="tab"
+                    aria-controls="panel-{{id}}"
+                    aria-selected="{{active}}"
+                    onclick="switchTab('{{id}}')"
+                >
+                    {{label}}
+                </button>
+            {{/each}}
+        </nav>
+    </div>
+    <div class="mt-4">
+        {{#each tabs}}
+            <div 
+                id="panel-{{id}}" 
+                class="tab-panel {{panelClasses}} {{activePanelClass}}"
+                role="tabpanel"
+                aria-labelledby="tab-{{id}}"
+            >
+                {{content}}
+            </div>
+        {{/each}}
+    </div>
+</div>`
+            },
+            {
+                targetId: 'modal-code-area',
+                label: 'modal 컴포넌트',
+                code: `<div id="{{modalId}}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center {{visibility}}" role="dialog" aria-labelledby="{{modalId}}-title">
+  <div class="bg-white rounded-lg p-6 max-w-md w-full">
+    <h2 id="{{modalId}}-title" class="text-xl font-bold text-gray-900 mb-4">{{modalTitle}}</h2>
+    <div class="text-gray-600 mb-4">{{modalContent}}</div>
+    {{formContent}}
+    <div class="flex justify-end gap-2">
+      {{buttons}}
+    </div>
+  </div>
+</div>`
+            },
+            {
+                targetId: 'grid-code-area',
+                label: 'grid 컴포넌트',
+                code: `
+                <div class="grid grid-cols-{{gridCols}} gap-{{gap}} {{gridClasses}}" {{ariaAttributes}}>
+    {{#each items}}
+        <div class="{{itemClasses}}">{{content}}</div>
+    {{/each}}
+</div>`
+            },
+            {
+                targetId: 'container-code-area',
+                label: 'container 컴포넌트',
+                code: `
+                <div class="max-w-{{width}} mx-auto px-{{padding}} {{containerClasses}}" {{ariaAttributes}}>
+    {{content}}
+</div>`
+            },
+            // {
+            //     targetId: '-code-area',
+            //     label: 'textarea 컴포넌트',
+            //     code: ``
+            // }
+            
+        ];
+
+
+        function applyCodeSnippets(snippets) {
+            snippets.forEach(snippet => {
+                const el = document.getElementById(snippet.targetId);
+                if (el) {
+                    el.value = snippet.code.trim();
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applyCodeSnippets(codeSnippets);
+        });
+
+        setTimeout(() => {
+            document.querySelectorAll('.auto-height').forEach(ta => {
+                ta.style.height = 'auto';
+                ta.style.height = ta.scrollHeight + 'px';
+            });
+        }, 500);
+        
+    </script>
+
+</body>
+</html>

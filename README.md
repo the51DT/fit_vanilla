@@ -39,8 +39,7 @@ html/
 
 ## 코드 품질 및 확장성
 
-- TailwindCSS + 커스텀 CSS 조합 (BEM 등 네이밍 규칙 준수)
+- TailwindCSS + 커스텀 CSS 조합
 - HTML5 시맨틱 마크업
 - 재사용 가능한 컴포넌트 구조
 - 유지보수 용이한 분리형 파일 구성
-

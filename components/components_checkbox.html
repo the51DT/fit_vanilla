@@ -1,0 +1,15 @@
+<div class="mb-4 {{containerClasses}}">
+    {{#each checkboxes}}
+    <label class="flex items-center {{labelClasses}}" for="{{id}}">
+        <input 
+            type="checkbox" 
+            id="{{id}}" 
+            class="checkbox {{checkboxClasses}} {{stateClasses}}" 
+            {{checked}} 
+            {{disabled}} 
+            {{ariaAttributes}}
+            >
+            <span class="ml-2 text-sm text-neutral-700">{{label}}</span>
+    </label>
+    {{/each}}
+</div>

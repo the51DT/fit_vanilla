@@ -1,0 +1,31 @@
+<div class="tabs {{containerClasses}}">
+    <div class="border-b border-gray-200">
+        <nav class="-mb-px flex space-x-4" role="tablist">
+            {{#each tabs}}
+                <button 
+                    type="button"
+                    id="tab-{{id}}"
+                    class="tab {{tabClasses}} {{activeClass}}"
+                    role="tab"
+                    aria-controls="panel-{{id}}"
+                    aria-selected="{{active}}"
+                    onclick="switchTab('{{id}}')"
+                >
+                    {{label}}
+                </button>
+            {{/each}}
+        </nav>
+    </div>
+    <div class="mt-4">
+        {{#each tabs}}
+            <div 
+                id="panel-{{id}}" 
+                class="tab-panel {{panelClasses}} {{activePanelClass}}"
+                role="tabpanel"
+                aria-labelledby="tab-{{id}}"
+            >
+                {{content}}
+            </div>
+        {{/each}}
+    </div>
+</div>

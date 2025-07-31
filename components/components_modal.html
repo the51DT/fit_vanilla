@@ -1,0 +1,10 @@
+<div id="{{modalId}}" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center {{visibility}}" role="dialog" aria-labelledby="{{modalId}}-title">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full">
+        <h2 id="{{modalId}}-title" class="text-xl font-bold text-gray-900 mb-4">{{modalTitle}}</h2>
+        <div class="text-gray-600 mb-4">{{modalContent}}</div>
+        {{formContent}}
+        <div class="flex justify-end gap-2">
+            {{buttons}}
+        </div>
+    </div>
+</div>
