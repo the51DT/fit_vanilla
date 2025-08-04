@@ -9,10 +9,10 @@
         <%= data.title %>
     </title>
     <meta name="description" content="<%= data.description %>">
-    <link rel="stylesheet" href="/src/page/bchoi/lib/asset/vendor/datepicker.min.css">
-    <link rel="stylesheet" href="/src/page/bchoi/lib/asset/vendor/swiper.min.scss">
-    <link rel="stylesheet" href="/src/page/bchoi/lib/src/css/lib_miraeasset.css" />
-    <link rel="stylesheet" href="/src/page/bchoi/lib/src/css/lib_miraeasset_calendar.css">
+    <link rel="stylesheet" href="/src/assets/css/datepicker.min.css">
+    <link rel="stylesheet" href="/src/assets/css/swiper.min.scss">
+    <link rel="stylesheet" href="/src/page/bchoi/lib/css/lib_miraeasset.css" />
+    <link rel="stylesheet" href="/src/page/bchoi/lib/css/lib_miraeasset_calendar.css">
 </head>
 
 <body>
@@ -82,8 +82,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="section_text mt-3">
-                                <!-- weekly Calendar Modal -->
+                            <!-- <div class="section_text mt-3">
+                                // weekly Calendar Modal 
                                 <div class="wrap">
                                     <div class="content">
                                         <div class="routine-calendar__wrap">
@@ -91,7 +91,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -130,13 +130,13 @@
     </div>
 
     <script type="module" src="/src/main.js"></script>
-    <script src="/src/page/bchoi/lib/asset/vendor/dayjs.min.js"></script>
-    <script src="/src/page/bchoi/lib/asset/vendor/dayjs-ko.js"></script>
-    <script src="/src/page/bchoi/lib/asset/vendor/datepicker-full.js"></script>
-    <script src="/src/page/bchoi/lib/asset/vendor/datepicker-ko.js"></script>
-    <script src="/src/page/bchoi/lib/asset/vendor/swiper-bundle.min.js"></script>
-    <script type="module" src="/src/page/bchoi/lib/src/js/lib_miraeasset.js"></script>
-    <script type="module" src="/src/page/bchoi/lib/src/js/lib_miraeasset_calendar.js"></script>
+    <script src="/src/assets/js/dayjs.min.js"></script>
+    <script src="/src/assets/js/dayjs-ko.js"></script>
+    <script src="/src/assets/js/datepicker-full.js"></script>
+    <script src="/src/assets/js/datepicker-ko.js"></script>
+    <script src="/src/assets/js/swiper-bundle.min.js"></script>
+    <script type="module" src="/src/page/bchoi/lib/js/lib_miraeasset.js"></script>
+    <script type="module" src="/src/page/bchoi/lib/js/lib_miraeasset_calendar.js"></script>
     <script type="module">
         import { initializeCalendar, dayCalendar, createWeeklyCalendar } from './js/lib_miraeasset_calendar.js';
         import { tooltipActive, openModal, closeModal, addUserDataToWeeklyLink, handleWeeklyLinkClick } from './js/lib_miraeasset.js';

@@ -110,83 +110,83 @@ export const createWeeklyCalendar = (containerId, options = {}) => {
 
     let currentDate = dayjs();
 
-    const displayWeeklyCalendar = (date) => {
-        const displayData = container.querySelector('.display-data');
-        const weeklyLabels = container.querySelector('.weekly-cal__header');
-        const swipingContainer = container.querySelector('.swiper-wrapper');
+    // const displayWeeklyCalendar = (date) => {
+    //     const displayData = container.querySelector('.display-data');
+    //     const weeklyLabels = container.querySelector('.weekly-cal__header');
+    //     const swipingContainer = container.querySelector('.swiper-wrapper');
 
-        if (!displayData || !weeklyLabels || !swipingContainer) return;
+    //     if (!displayData || !weeklyLabels || !swipingContainer) return;
 
-        const startOfWeek = date.startOf('week');
-        const endOfWeek = date.endOf('week');
+    //     const startOfWeek = date.startOf('week');
+    //     const endOfWeek = date.endOf('week');
 
-        const titleType = options.displayDay;
-        if (titleType === 'WeeklyRange') {
-            displayData.textContent = `${startOfWeek.format('MM.DD')} - ${endOfWeek.format('MM.DD')}`;
-        } else if (titleType === 'onlyMonthly') {
-            displayData.textContent = date.format('YYYY.MM');
-        } else {
-            displayData.textContent = date.format('YYYY-MM-DD');
-        }
+    //     const titleType = options.displayDay;
+    //     if (titleType === 'WeeklyRange') {
+    //         displayData.textContent = `${startOfWeek.format('MM.DD')} - ${endOfWeek.format('MM.DD')}`;
+    //     } else if (titleType === 'onlyMonthly') {
+    //         displayData.textContent = date.format('YYYY.MM');
+    //     } else {
+    //         displayData.textContent = date.format('YYYY-MM-DD');
+    //     }
 
-        weeklyLabels.innerHTML = '';
-        swipingContainer.innerHTML = '';
+    //     weeklyLabels.innerHTML = '';
+    //     swipingContainer.innerHTML = '';
 
-        [-1, 0, 1].forEach((weekOffset) => {
-            const weekDate = date.add(weekOffset, 'week');
-            const slideItem = document.createElement('div');
-            slideItem.classList.add('swiper-slide');
-            const dayListUl = document.createElement('ul');
-            slideItem.appendChild(dayListUl);
+    //     [-1, 0, 1].forEach((weekOffset) => {
+    //         const weekDate = date.add(weekOffset, 'week');
+    //         const slideItem = document.createElement('div');
+    //         slideItem.classList.add('swiper-slide');
+    //         const dayListUl = document.createElement('ul');
+    //         slideItem.appendChild(dayListUl);
 
-            let dayIterator = weekDate.startOf('week');
-            for (let i = 0; i < 7; i++) {
-                if (weekOffset === 0) {
-                    const weekLabel = document.createElement('li');
-                    weekLabel.classList.add('label');
-                    weekLabel.textContent = dayIterator.format('ddd');
-                    if (dayIterator.day() === 0 || dayIterator.day() === 6)
-                        weekLabel.classList.add('holiday');
-                    if (dayIterator.isSame(dayjs(), 'day')) weekLabel.classList.add('today');
-                    weeklyLabels.appendChild(weekLabel);
-                }
+    //         let dayIterator = weekDate.startOf('week');
+    //         for (let i = 0; i < 7; i++) {
+    //             if (weekOffset === 0) {
+    //                 const weekLabel = document.createElement('li');
+    //                 weekLabel.classList.add('label');
+    //                 weekLabel.textContent = dayIterator.format('ddd');
+    //                 if (dayIterator.day() === 0 || dayIterator.day() === 6)
+    //                     weekLabel.classList.add('holiday');
+    //                 if (dayIterator.isSame(dayjs(), 'day')) weekLabel.classList.add('today');
+    //                 weeklyLabels.appendChild(weekLabel);
+    //             }
 
-                const listItem = document.createElement('li');
-                const link = document.createElement('a');
-                link.href = '#';
+    //             const listItem = document.createElement('li');
+    //             const link = document.createElement('a');
+    //             link.href = '#';
 
-                const dayDiv = document.createElement('div');
-                dayDiv.classList.add('day');
-                dayDiv.textContent = dayIterator.format('D');
-                link.appendChild(dayDiv);
+    //             const dayDiv = document.createElement('div');
+    //             dayDiv.classList.add('day');
+    //             dayDiv.textContent = dayIterator.format('D');
+    //             link.appendChild(dayDiv);
 
-                if (dayIterator.day() === 0 || dayIterator.day() === 6)
-                    link.classList.add('holiday');
-                if (dayIterator.isSame(dayjs(), 'day')) link.classList.add('today');
+    //             if (dayIterator.day() === 0 || dayIterator.day() === 6)
+    //                 link.classList.add('holiday');
+    //             if (dayIterator.isSame(dayjs(), 'day')) link.classList.add('today');
 
-                if (
-                    typeof options.addUserDataToWeeklyLink === 'function' &&
-                    dayIterator.isSameOrBefore(dayjs())
-                ) {
-                    options.addUserDataToWeeklyLink(link);
-                }
+    //             if (
+    //                 typeof options.addUserDataToWeeklyLink === 'function' &&
+    //                 dayIterator.isSameOrBefore(dayjs())
+    //             ) {
+    //                 options.addUserDataToWeeklyLink(link);
+    //             }
 
-                ((d) => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        if (typeof options.handleWeeklyLinkClick === 'function') {
-                            options.handleWeeklyLinkClick(d);
-                        }
-                    });
-                })(dayIterator);
+    //             ((d) => {
+    //                 link.addEventListener('click', (e) => {
+    //                     e.preventDefault();
+    //                     if (typeof options.handleWeeklyLinkClick === 'function') {
+    //                         options.handleWeeklyLinkClick(d);
+    //                     }
+    //                 });
+    //             })(dayIterator);
 
-                listItem.appendChild(link);
-                dayListUl.appendChild(listItem);
-                dayIterator = dayIterator.add(1, 'day');
-            }
-            swipingContainer.appendChild(slideItem);
-        });
-    };
+    //             listItem.appendChild(link);
+    //             dayListUl.appendChild(listItem);
+    //             dayIterator = dayIterator.add(1, 'day');
+    //         }
+    //         swipingContainer.appendChild(slideItem);
+    //     });
+    // };
 
     const swiperOptions = {
         initialSlide: 1,
@@ -217,9 +217,9 @@ export const createWeeklyCalendar = (containerId, options = {}) => {
         } else {
             currentDate = currentDate.subtract(1, 'week');
         }
-        displayWeeklyCalendar(currentDate);
+        // displayWeeklyCalendar(currentDate);
         swiper.slideToLoop(1, 0, false);
     });
 
-    displayWeeklyCalendar(currentDate);
+    // displayWeeklyCalendar(currentDate);
 };
