@@ -1,0 +1,311 @@
+/* 1. tooltip */
+/* 말풍선 */
+.bubble-wrap {
+    width: fit-content;
+}
+[class*='bubble-type'] {
+    border-radius: 12px;
+    color: var(--color-white);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 18px;
+}
+.bubble-orange [class*='bubble-type'] {
+    background-color: var(--color-primary);
+}
+.bubble-danger [class*='bubble-type'] {
+    background-color: #ff4d4d;
+}
+.bubble-gray9 [class*='bubble-type'] {
+    background-color: var(--color-basic6);
+}
+.bubble-gray8 [class*='bubble-type'] {
+    background-color: var(--color-basic8);
+}
+.bubble-black [class*='bubble-type'] {
+    background-color: #292929;
+}
+.bubble-type01 {
+    max-width: calc(100vw - 2rem);
+    /* min-width: auto; */
+    width: max-content;
+    position: relative;
+    padding: calc(5 / 16 * 1rem) calc(12 / 16 * 1rem);
+}
+.bubble-type02 {
+    max-width: calc(592 / 16 * 1rem);
+    position: relative;
+    padding: calc(5 / 16 * 1rem) calc(12 / 16 * 1rem);
+}
+.bubble-type03 {
+    width: fit-content;
+    position: relative;
+    padding: calc(3 / 16 * 1rem) calc(10 / 16 * 1rem);
+    z-index: 1;
+}
+.bubble-box {
+    position: relative;
+    display: inline-flex;
+}
+.bubble-box.bubble-box--has-close .bubble-type01 {
+    padding: calc(5 / 16 * 1rem) calc(32 / 16 * 1rem) calc(5 / 16 * 1rem) calc(12 / 16 * 1rem);
+    /* max-width: calc(296 / 16 * 1rem); */
+}
+.bubble-box.bubble-box--has-close .button-wrap.button-wrap--bubble-close {
+    /* display: none; */
+    position: absolute;
+    top: calc(5 / 16 * 1rem);
+    right: calc(8 / 16 * 1rem);
+    width: calc(16 / 16 * 1rem);
+    height: calc(16 / 16 * 1rem);
+}
+.bubble-box.bubble-box--has-close .button-wrap.button-wrap--bubble-close .btn {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.bubble-box.bubble-box--has-close .button-wrap.button-wrap--bubble-close .btn .ico {
+    display: block;
+}
+
+/* 말풍선 : 이미지 사용 (기본색) */
+.bubble-type01 + [class*='triangle-icon'],
+.bubble-type02 + [class*='triangle-icon'] {
+    position: absolute;
+    background: url('../../assets/img/icon/icon_triangle_or.png') no-repeat center center;
+    width: calc(14 / 16 * 1rem);
+    height: calc(10 / 16 * 1rem);
+    background-size: contain;
+}
+/* 말풍선 : 이미지 사용 (danger:#FF4D4D) */
+.bubble-danger .bubble-type01 + [class*='triangle-icon'],
+.bubble-danger .bubble-type02 + [class*='triangle-icon'],
+.bubble-danger .bubble-type03 + [class*='triangle-icon'] {
+    position: absolute;
+    background: url('../../assets/img/icon/icon_triangle_danger.png') no-repeat center center;
+    width: calc(14 / 16 * 1rem);
+    height: calc(10 / 16 * 1rem);
+    background-size: contain;
+}
+/* 말풍선 : 이미지 사용 (#999) */
+.bubble-gray9 .bubble-type01 + [class*='triangle-icon'],
+.bubble-gray9 .bubble-type02 + [class*='triangle-icon'],
+.bubble-gray9 .bubble-type03 + [class*='triangle-icon'] {
+    position: absolute;
+    background: url('../../assets/img/icon/icon_triangle_gray9.png') no-repeat center center;
+    width: calc(14 / 16 * 1rem);
+    height: calc(10 / 16 * 1rem);
+    background-size: contain;
+}
+/* 말풍선 : 이미지 사용 (#616161) */
+.bubble-gray8 .bubble-type01 + [class*='triangle-icon'],
+.bubble-gray8 .bubble-type02 + [class*='triangle-icon'],
+.bubble-gray8 .bubble-type03 + [class*='triangle-icon'] {
+    position: absolute;
+    background: url('../../assets/img/icon/icon_triangle_gray61.png') no-repeat center center;
+    width: calc(14 / 16 * 1rem);
+    height: calc(10 / 16 * 1rem);
+    background-size: contain;
+}
+/* 메인, 오늘의 기분에서 사용되는 말풍선 (직삼각형) */
+.bubble-type01 + .triangle-icon.rightTriangle-type01 {
+    position: absolute;
+    background: url('../../assets/img/icon/icon_small_rigt_triangle_or.png') no-repeat center center;
+    width: calc(11 / 16 * 1rem);
+    height: calc(12 / 16 * 1rem);
+    background-size: contain;
+}
+.bubble-type01 + .triangle-icon.rightTriangle-type02 {
+    position: absolute;
+    background: url('../../assets/img/icon/icon_big_rigt_triangle_or.png') no-repeat center center;
+    width: calc(16 / 16 * 1rem);
+    height: calc(22 / 16 * 1rem);
+    background-size: contain;
+}
+/* 말풍선 : : 이미지 사용 (검정색) */
+.bubble-black .bubble-type03 + [class*='triangle-icon'],
+.bubble-black .bubble-type01 + [class*='triangle-icon'] {
+    position: absolute;
+    background: url('../../assets/img/icon/icon_triangle_bl.png') no-repeat center center;
+    background-size: contain;
+    width: calc(14 / 16 * 1rem);
+    height: calc(10 / 16 * 1rem);
+}
+[class*='bubble-top'] + .triangle-icon {
+    top: calc(-5 / 16 * 1rem);
+    left: 50%;
+    transform: translateX(-50%) rotate(180deg);
+}
+.bubble-top--left + .triangle-icon {
+    top: calc(-5 / 16 * 1rem);
+    left: calc(10 / 16 * 1rem);
+    transform: translateX(0) rotate(180deg);
+}
+.bubble-top--right + .triangle-icon {
+    top: calc(-5 / 16 * 1rem);
+    right: calc(10 / 16 * 1rem);
+    left: auto;
+    transform: translateX(0) rotate(180deg);
+}
+[class*='bubble-btm'] + .triangle-icon {
+    bottom: calc(-5 / 16 * 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+}
+.bubble-btm--left + .triangle-icon {
+    bottom: calc(-5 / 16 * 1rem);
+    left: calc(10 / 16 * 1rem);
+    transform: translateX(0);
+}
+.bubble-btm--right + .triangle-icon {
+    bottom: calc(-5 / 16 * 1rem);
+    right: calc(10 / 16 * 1rem);
+    left: auto;
+    transform: translateX(0);
+}
+/* 메인, 오늘의 기분에서 사용되는 말풍선 (직삼각형) */
+.bubble-type01.bubble-btm + .triangle-icon.rightTriangle-type01 {
+    bottom: calc(-7 / 16 * 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+}
+.bubble-type01.bubble-btm--left + .triangle-icon.rightTriangle-type01 {
+    bottom: calc(-8 / 16 * 1rem);
+    left: calc(10 / 16 * 1rem);
+    transform: translateX(0);
+}
+.bubble-type01.bubble-btm--right + .triangle-icon.rightTriangle-type01 {
+    bottom: calc(-8 / 16 * 1rem);
+    right: calc(10 / 16 * 1rem);
+    left: auto;
+    transform: translateX(-50%);
+}
+.bubble-type01.bubble-btm + .triangle-icon.rightTriangle-type02 {
+    bottom: calc(-10 / 16 * 1rem);
+    left: 50%;
+    transform: translateX(-50%);
+}
+.bubble-type01.bubble-btm--left + .triangle-icon.rightTriangle-type02 {
+    bottom: calc(-10 / 16 * 1rem);
+    left: calc(10 / 16 * 1rem);
+    transform: translateX(0);
+}
+.bubble-type01.bubble-btm--left + .triangle-icon.rightTriangle-type02.rotate {
+    bottom: calc(9 / 16 * 1rem);
+    left: calc(-5 / 16 * 1rem);
+    transform: translateX(0) rotate(90deg);
+}
+.bubble-type01.bubble-btm--right + .triangle-icon.rightTriangle-type02 {
+    bottom: calc(-14 / 16 * 1rem);
+    right: calc(10 / 16 * 1rem);
+    left: auto;
+    transform: translateX(-50%);
+}
+
+/* (검정색 말풍선에서 사용되는 거 본 적 없음) 메인에서 사용되는 좌우 말풍선만 봤어서 메인 말풍선을 triangle-icon--big 클래스로 작업함 // w값 : 16px */
+.bubble-left + .triangle-icon--big,
+.bubble-right + .triangle-icon--big {
+    position: absolute;
+    background: url('../../assets/img/icon/icon_triangle_or_16.png') no-repeat center center;
+    width: calc(16 / 16 * 1rem);
+    height: calc(13.696 / 16 * 1rem);
+    background-size: contain;
+}
+.bubble-left + .triangle-icon--big {
+    top: 50%;
+    left: calc(-10 / 16 * 1rem);
+    transform: translateY(-50%);
+}
+.bubble-right + .triangle-icon--big {
+    top: 50%;
+    right: calc(-10 / 16 * 1rem);
+    transform: translateY(-50%) rotate(180deg);
+}
+/* 좌우 말풍선 작은 삼각형 사용할 경우 : triangle-icon 클래스 기본 사용 */
+.bubble-left + .triangle-icon {
+    top: 50%;
+    left: calc(-7 / 16 * 1rem);
+    transform: translateY(-50%) rotate(90deg);
+}
+.bubble-right + .triangle-icon {
+    top: 50%;
+    right: calc(-7 / 16 * 1rem);
+    transform: translateY(-50%) rotate(-90deg);
+}
+
+/* tooltip */
+.tooltip-wrap {
+    position: relative;
+}
+.tooltip-wrap .tooltip-box {
+    position: absolute;
+}
+.tooltip-wrap .bubble-type01 {
+    max-width: 372px;
+}
+.tooltip-wrap .tooltip-box {
+    display: none;
+}
+.tooltip-wrap .tooltip-box.tool-active {
+    display: block;
+    animation: toolOpacity 1s ease forwards;
+}
+/* tooltip > 아이콘만 있는 툴팁 */
+.tooltip-wrap.tool-only {
+    display: inline-flex;
+}
+.tooltip-wrap.tool-only .tooltip-icon {
+    display: flex;
+}
+.tooltip-wrap.tool-only .tooltip-box {
+    top: calc(26 / 16 * 1rem);
+    left: calc(-16 / 16 * 1rem);
+    z-index: 11;
+}
+.tooltip-wrap.tool-only--right .tooltip-box {
+    top: calc(26 / 16 * 1rem);
+    left: auto;
+    right: 0;
+    z-index: 11;
+}
+
+/* tooltip > 아이콘 + 텍스트 툴팁이면서 위치는 오른쪽인 툴팁 */
+.tooltip-wrap.tool-txt {
+    display: flex;
+    flex-direction: column;
+}
+.tooltip-wrap.right-tool {
+    align-items: flex-end;
+}
+.tooltip-wrap.tool-txt .tooltip-icon {
+    display: flex;
+    align-items: center;
+    gap: calc(6 / 16 * 1rem);
+}
+.tooltip-wrap.right-tool:not(.tool-only) .tooltip-box {
+    top: calc(26 / 16 * 1rem);
+    right: auto;
+}
+.tooltip-wrap.tool-txt .tooltip-tit {
+    font-size: calc(12 / 16 * 1rem);
+    color: var(--color-basic6);
+    font-weight: 700;
+}
+/* tooltip > 텍스트 + 아이콘 툴팁이면서 위치는 왼쪽인 툴팁 */
+.tooltip-wrap.tool-txt {
+    display: inline-flex;
+    flex-direction: column;
+}
+.tooltip-wrap.tool-txt .tooltip-icon {
+    display: flex;
+    align-items: center;
+    gap: calc(6 / 16 * 1rem);
+}
+.tooltip-wrap.left-tool .tooltip-box {
+    top: calc(32 / 16 * 1rem);
+}
+.tooltip-wrap.tool-txt .tooltip-tit {
+    font-size: calc(12 / 16 * 1rem);
+    color: var(--color-basic6);
+    font-weight: 700;
+}
