@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon-32x32.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+        <%= data.title %>
+    </title>
+    <meta name="description" content="<%= data.description %>">
+    <link rel="stylesheet" href="/src/page/bchoi/lib/asset/vendor/datepicker.min.css">
+    <link rel="stylesheet" href="/src/page/bchoi/lib/asset/vendor/swiper.min.scss">
+    <link rel="stylesheet" href="/src/page/bchoi/lib/src/css/lib_miraeasset.css" />
+    <link rel="stylesheet" href="/src/page/bchoi/lib/src/css/lib_miraeasset_calendar.css">
+</head>
+
+<body>
+    <div class="guide__wrap">
+        <div class="guide__wrap">
+            <%- include('src/layouts/guide_header.html') %>
+                <div class="page-location text-2xl font-bold">
+                    <span id="pagesTitle">미래에셋 기반 라이브러리화</span>
+                </div>
+                <div class="guide-content">
+                    <div class="flex justify-between lnb-type">
+                        <div class="page-cont flex-1">
+                            <p class="guide-title-h3">1. 툴팁</p>
+                            <!-- 아이콘만 있는 툴팁 -->
+                            <div class="section_text mt-3">
+                                <div>
+                                    <%- include('src/components/cmp_miraeasset_tooltip.html' , Object.assign({}, locals,
+                                        { type:'only-icon', icon: 'ico-tooltip' , irText: '등급안내 1' , content: 'test' ,
+                                        })) %>
+                                </div>
+                                <div>
+                                    <%- include('src/components/cmp_miraeasset_tooltip.html' , Object.assign({}, locals,
+                                        { type:'only-icon', icon: 'ico-maintip' , irText: '등급안내 2' ,
+                                        content: 'aaaaaaaaaaaaaaaaaaaaaaaa' ,})) %>
+                                </div>
+                                <div>
+                                    <%- include('src/components/cmp_miraeasset_tooltip.html' , Object.assign({}, locals,
+                                        { type:'text-icon', icon: 'ico-tooltip' , title: '칼로리 계산법' ,
+                                        content: "운동 소모 칼로리는 ' 운동 별 운동 강동 (MET),<br /> W : 몸무게(kg), hr : 운동시간(hr)'을<br /> 기준으로 계산됩니다. (국제 표준 기준)"
+                                        , toolBoxAddclass: 'right-auto left-0' ,})) %>
+                                </div>
+                            </div>
+
+                            <p class="guide-title-h3 mt-6">2. 토스트 팝업</p>
+                            <div class="section_text">
+                                <div class="button__wrap">
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="openToast('toast1', '(1) 2초 후에 사라져요', 'bottomCase')">하단고정버튼 있는
+                                        경우</button>
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="openToast('toast2', '(2) 2초 후에 사라져요')">하단고정버튼 없는 경우</button>
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="openToast('toast3', '(3) 2초 후에 사라져요', 'error')">오류 케이스</button>
+                                </div>
+                            </div>
+
+                            <p class="guide-title-h3 mt-6">3. 캘린더</p>
+                            <div class="section_text">
+                                <!-- Day Calendar Modal -->
+                                <div class="wrap">
+                                    <div class="content">
+                                        <div class="date-area">
+                                            <span class="today-date" onclick="openModal(event)"
+                                                modal-id="dayCalendarModal">오늘</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section_text mt-3">
+                                <!-- Monthly Calendar Modal -->
+                                <div class="wrap">
+                                    <div class="content">
+                                        <div class="date-area">
+                                            <span class="today-date" onclick="openModal(event)"
+                                                modal-id="monthlyCalendarModal">오늘</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="section_text mt-3">
+                                <!-- weekly Calendar Modal -->
+                                <div class="wrap">
+                                    <div class="content">
+                                        <div class="routine-calendar__wrap">
+                                            <div class="calendar__wrap" id="calendarWeekly"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <!-- Day Calendar Modal -->
+    <div class="modal__wrap--bg type-bottom" id="dayCalendarModal">
+        <div class="modal__wrap">
+            <div class="modal-header">
+                <h3 class="font-type-h3">날짜를 선택해 주세요</h3>
+                <button type="button" class="btn btn-icon-close close-modal" onclick="closeModal(event)">
+                    <span class="ir-text">닫기</span>
+                </button>
+            </div>
+            <div class="modal-cont">
+                <div class="day-calendar-container" id="dayCalendarContainer">
+                    <button class="btn-prev">이전</button>
+                    <div class="today-display"></div>
+                    <button class="btn-next">다음</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monthly Calendar Modal -->
+    <div class="modal__wrap--bg type-bottom modal-datepicker" id="monthlyCalendarModal">
+        <div class="modal__wrap">
+            <div class="modal-header">
+                <h3 class="font-type-h3">날짜를 선택해 주세요</h3>
+                <button type="button" class="btn-icon-close close-modal" onclick="closeModal(event)">
+                    <span class="ir-text">닫기</span>
+                </button>
+            </div>
+            <div class="modal-cont" id="calendarContainer"></div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+    <script src="/src/page/bchoi/lib/asset/vendor/dayjs.min.js"></script>
+    <script src="/src/page/bchoi/lib/asset/vendor/dayjs-ko.js"></script>
+    <script src="/src/page/bchoi/lib/asset/vendor/datepicker-full.js"></script>
+    <script src="/src/page/bchoi/lib/asset/vendor/datepicker-ko.js"></script>
+    <script src="/src/page/bchoi/lib/asset/vendor/swiper-bundle.min.js"></script>
+    <script type="module" src="/src/page/bchoi/lib/src/js/lib_miraeasset.js"></script>
+    <script type="module" src="/src/page/bchoi/lib/src/js/lib_miraeasset_calendar.js"></script>
+    <script type="module">
+        import { initializeCalendar, dayCalendar, createWeeklyCalendar } from './js/lib_miraeasset_calendar.js';
+        import { tooltipActive, openModal, closeModal, addUserDataToWeeklyLink, handleWeeklyLinkClick } from './js/lib_miraeasset.js';
+        tooltipActive();
+        window.openModal = openModal;
+        window.closeModal = closeModal;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            dayjs.locale('ko');
+            dayCalendar('#dayCalendarContainer', {});
+            initializeCalendar('calendarContainer', {});
+            createWeeklyCalendar("calendarWeekly", {
+                startDate: dayjs().subtract(6, 'month').format('YYYY.MM'),
+                futureLimit: 5,
+                button: true,
+                displayDay: "onlyMonthly",
+                addUserDataToWeeklyLink,
+                handleWeeklyLinkClick,
+                swiperOptions: {
+                    loop: true,
+                },
+            });
+        });
+
+    </script>
+</body>
+
+</html>

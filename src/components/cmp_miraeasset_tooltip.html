@@ -1,0 +1,36 @@
+<!-- 아이콘만 있는 툴팁 -->
+<div class="tooltip-wrap <%= type=='text-icon' ? 'right-tool tool-txt' : 'tool-only' %>">
+  <% if (type=='text-icon' ) { %>
+    <div class="tooltip-icon">
+      <span class="tooltip-tit">
+        <%= title %>
+      </span>
+      <i class="ico <%= icon ? icon : 'ico-tooltip'%>"></i>
+    </div>
+    <% } else if (type=='only-icon' ) { %>
+      <div class="tooltip-icon">
+        <i class="ico <%= icon ? icon : 'ico-tooltip'%>"></i>
+        <span class="ir-text">
+          <%= irText%>
+        </span>
+      </div>
+      <% } %>
+        <!-- 툴팁 내용 -->
+        <div
+          class="tooltip-box <%= typeof toolBoxAddclass !== 'undefined' && toolBoxAddclass ? toolBoxAddclass : '' %>">
+          <div class="bubble-wrap">
+            <div class="bubble-box bubble-orange bubble-box--has-close">
+              <div class="bubble-type01 bubble-top">
+                <%- content %>
+              </div>
+              <div class="button-wrap button-wrap--bubble-close">
+                <button class="btn btn-ico">
+                  <i class="ico ico-close-white">
+                    <span class="ir-text">닫기</span>
+                  </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
